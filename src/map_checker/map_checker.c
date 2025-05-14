@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/13 11:20:35 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/14 12:04:35 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int has_invalid_char(t_map *map)
 				|| map->map[i][j] == '\r'
 				|| map->map[i][j] == '\v' || map->map[i][j] == '\f')
 					j++;
+			if (map->map[i][j] == '\0')
+				break;
 			if (map->map[i][j] == 'N')
 			{
 				map->player_pos_x = j;
@@ -101,7 +103,7 @@ int	player_can_see_wall(t_map *map) //later can split this to module functions
 	//see up
 	while (i > 0 && map->map[i - 1][j] == '0')
 		i--;
-	if (map->map[i - 1][j] != '1')
+	if (i - 1 < 0 || map->map[i - 1][j] != '1')
 		return (0);
 	//see down
 	i = map->player_pos_y;
@@ -173,6 +175,7 @@ int	map_checker(t_map *map) //returm 1 if fail
 		exit(EXIT_FAILURE);
 	}
 
+	//dubug
 	printf("player pos x: %d, y: %d\n", map->player_pos_x, map->player_pos_y);
 
 	//check border

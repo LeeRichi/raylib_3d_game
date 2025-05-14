@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/13 11:54:31 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/14 12:05:17 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,8 @@ int	is_map_line(char *line)
 
 int	texture_and_color_is_complete(t_map *map)
 {
-	if (map->north_path && map->south_path && map->west_path && map->east_path)
-		return (1);
-	if (map->floor_color != -1 && map->ceiling_color != -1)
+	if (map->north_path && map->south_path && map->west_path && map->east_path
+		&& map->floor_color != -1 && map->ceiling_color != -1)
 		return (1);
 	return (0);
 }
@@ -68,7 +67,11 @@ void	parse_map(const char *map_path, t_map *map)
 	while ((line = get_next_line(fd)))
 	{
 		if (is_empty_line(line))
+		{
 			free(line);
+			if (map_started_flag)
+				break ;
+		}
 		else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 ||
 				ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
 				{
@@ -110,6 +113,18 @@ void	parse_map(const char *map_path, t_map *map)
 	}
 	map_lines[map_index] = NULL;
 	save_map(map, map_lines);
+	//garbege lines after map ends checker
+	while ((line = get_next_line(fd)))
+	{
+		if (!is_empty_line(line))
+		{
+			printf("Error: Garbage line after map ends: %s\n", line);
+			free(line);
+			close(fd);
+			exit(EXIT_FAILURE);
+		}
+		free(line);
+	}
 	close(fd);
 }
 

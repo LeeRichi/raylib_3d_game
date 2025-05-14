@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:10:14 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 12:04:09 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:36:15 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,18 @@ void free_map(char **map)
 	free(map);
 }
 
+void free_trims(t_map *map)
+{
+	if (map->north_path)
+		free(map->north_path);
+	if (map->south_path)
+		free(map->south_path);
+	if (map->west_path)
+		free(map->west_path);
+	if (map->east_path)
+		free(map->east_path);
+}
+
 int main(int ac, char **av)
 {
 	t_game	game;
@@ -90,6 +102,7 @@ int main(int ac, char **av)
 	// game_init(av);
 
 	//free things
-	//free_map(map.map);
+	free_map(map.map);
+	free_trims(&map);
 	return (0);
 }

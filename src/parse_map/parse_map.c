@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 12:05:17 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:31:48 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	trim_newline(char *line)
 
 void	parse_map(const char *map_path, t_map *map)
 {
-	int fd;
+	int		fd;
 	char	*line = NULL;
 	char	*map_lines[MAX_LINES];
 	int		map_started_flag = 0;

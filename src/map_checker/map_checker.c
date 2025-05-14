@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 12:04:35 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/14 17:31:24 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,26 +68,36 @@ int	is_surroundings_valid(t_map *map)
 {
 	int	i;
 	int	j;
+	int	len;
 
-	i = 0;
-	while(map->map[i])
+	j = 0;
+	while (map->map[0][j])
+	{
+		if (map->map[0][j] != '1' && map->map[0][j] != ' ')
+			return (0);
+		j++;
+	}
+	j = 0;
+	while (map->map[map->map_line_count - 1][j])
+	{
+		if (map->map[map->map_line_count - 1][j] != '1' && map->map[map->map_line_count - 1][j] != ' ')
+			return (0);
+		j++;
+	}
+	// Check left and right borders
+	i = 1;
+	while (i < map->map_line_count - 1)
 	{
 		j = 0;
-		while (map->map[i][j])
-		{
-			skip_spaces(map->map, &i, &j);
-			if (i == 0 || i == map->map_line_count - 1
-				|| j == 0 || (size_t)j == ft_strlen(map->map[i]) - 1)
-			{
-				if (map->map[i][j] != '1' && map->map[i][j] != '\0')
-				{
-					printf("Error\nMap is not surrounded by walls.\n");
-					return (0);
-				}
-
-			}
-			j++;
-		}
+		skip_spaces(map->map, &i, &j);
+		if (map->map[i][j] != '1')
+			return (0);
+		// reverse skip space
+		len = ft_strlen(map->map[i]) - 1;
+		while (len > 0 && map->map[i][len] == ' ')
+			len--;
+		if (map->map[i][len] != '1')
+			return (0);
 		i++;
 	}
 	return (1);
@@ -154,8 +164,6 @@ void print_map(t_map *map)
 
 int	map_checker(t_map *map) //returm 1 if fail
 {
-	print_map(map);
-
 	//check colors
 	if (!is_valid_color(map->floor_color))
 	{
@@ -174,9 +182,6 @@ int	map_checker(t_map *map) //returm 1 if fail
 		printf("Error\nInvalid character in map.\n");
 		exit(EXIT_FAILURE);
 	}
-
-	//dubug
-	printf("player pos x: %d, y: %d\n", map->player_pos_x, map->player_pos_y);
 
 	//check border
 	if (!is_surroundings_valid(map))

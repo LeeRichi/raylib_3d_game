@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/15 15:06:04 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 23:08:56 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,93 +103,93 @@ int	is_surroundings_valid(t_map *map)
 	return (1);
 }
 
-int	player_can_see_wall(t_map *map) //later can split this to module functions
-{
-	int i;
-	int	j;
+//this might not be needed
+// int	player_can_see_wall(t_map *map) //later can split this to module functions
+// {
+// 	int i;
+// 	int	j;
 
-	i = map->player_pos_y;
-	j = map->player_pos_x;
-	//see up
-	while (i > 0 && map->map[i - 1][j] == '0')
-		i--;
-	if (i - 1 < 0 || map->map[i - 1][j] != '1')
-		return (0);
-	//see down
-	i = map->player_pos_y;
-	j = map->player_pos_x;
-	while (map->map[i + 1] && map->map[i + 1][j] == '0')
-		i++;
-	if (map->map[i + 1][j] != '1')
-		return (0);
-	//see left
-	i = map->player_pos_y;
-	j = map->player_pos_x;
-	while (j > 0 && map->map[i][j - 1] == '0')
-		j--;
-	if (map->map[i][j - 1] != '1')
-		return (0);
-	//see right
-	i = map->player_pos_y;
-	j = map->player_pos_x;
-	while (map->map[i][j + 1] && map->map[i][j + 1] == '0')
-		j++;
-	if (map->map[i][j + 1] != '1')
-		return (0);
-	return (1);
-}
+// 	i = map->player_pos_y;
+// 	j = map->player_pos_x;
+// 	//see up
+// 	while (i > 0 && map->map[i - 1][j] == '0')
+// 		i--;
+// 	if (i - 1 < 0 || map->map[i - 1][j] != '1')
+// 		return (0);
+// 	//see down
+// 	i = map->player_pos_y;
+// 	j = map->player_pos_x;
+// 	while (map->map[i + 1] && map->map[i + 1][j] == '0')
+// 		i++;
+// 	if (map->map[i + 1][j] != '1')
+// 		return (0);
+// 	//see left
+// 	i = map->player_pos_y;
+// 	j = map->player_pos_x;
+// 	while (j > 0 && map->map[i][j - 1] == '0')
+// 		j--;
+// 	if (map->map[i][j - 1] != '1')
+// 		return (0);
+// 	//see right
+// 	i = map->player_pos_y;
+// 	j = map->player_pos_x;
+// 	while (map->map[i][j + 1] && map->map[i][j + 1] == '0')
+// 		j++;
+// 	if (map->map[i][j + 1] != '1')
+// 		return (0);
+// 	return (1);
+// }
 
-char	**copy_map(char **src_map, int height)
-{
-	char	**copy;
-	int		i;
+// char	**copy_map(char **src_map, int height)
+// {
+// 	char	**copy;
+// 	int		i;
 
-	copy = malloc(sizeof(char *) * (height + 1));
-	if (!copy)
-		return (NULL);
-	i = 0;
-	while (i < height)
-	{
-		copy[i] = ft_strdup(src_map[i]);
-		if (!copy[i])
-		{
-			while (--i >= 0)
-				free(copy[i]);
-			free(copy);
-			return (NULL);
-		}
-		i++;
-	}
-	copy[i] = NULL;
-	return (copy);
-}
+// 	copy = malloc(sizeof(char *) * (height + 1));
+// 	if (!copy)
+// 		return (NULL);
+// 	i = 0;
+// 	while (i < height)
+// 	{
+// 		copy[i] = ft_strdup(src_map[i]);
+// 		if (!copy[i])
+// 		{
+// 			while (--i >= 0)
+// 				free(copy[i]);
+// 			free(copy);
+// 			return (NULL);
+// 		}
+// 		i++;
+// 	}
+// 	copy[i] = NULL;
+// 	return (copy);
+// }
 
-int	no_hole_in_map(t_map *map)
-{
-	char	**temp_map;
-	t_point	size;
-	t_point	begin;
-	
-	temp_map = copy_map(map->map, map->map_line_count);
-	if (!temp_map)
-		return (0); //error
+// int	no_hole_in_map(t_map *map)
+// {
+// 	char	**temp_map;
+// 	t_point	size;
+// 	t_point	begin;
+
+// 	temp_map = copy_map(map->map, map->map_line_count);
+// 	if (!temp_map)
+// 		return (0); //error
 
 
-	size.y = map->map_line_count;
-	size.x = map->coloum_count;
+// 	size.y = map->map_line_count;
+// 	size.x = map->coloum_count;
 
-	begin.y = map->player_pos_y;
-	begin.x = map->player_pos_x;
+// 	begin.y = map->player_pos_y;
+// 	begin.x = map->player_pos_x;
 
-	temp_map[begin.y][begin.x] = '0';
-	flood_fill(temp_map, size, begin);
+// 	temp_map[begin.y][begin.x] = '0';
+// 	flood_fill(temp_map, size, begin);
 
-	printf("\n\n");
-	print_matrix(temp_map);
-	
-	
-	return (1);
-}
+// 	printf("\n\n");
+// 	print_matrix(temp_map);
+
+// 	return (1);
+// }
 
 int	is_valid_color(int color)
 {
@@ -242,11 +242,11 @@ int	map_checker(t_map *map) //returm 1 if fail
 		exit(EXIT_FAILURE);
 	}
 
-	if (!no_hole_in_map(map))
-	{
-		printf("Error\nPlayer cannot see wall.\n");
-		exit(EXIT_FAILURE);
-	}
+	// if (!no_hole_in_map(map))
+	// {
+	// 	printf("Error\nPlayer cannot see wall.\n");
+	// 	exit(EXIT_FAILURE);
+	// }
 
 	//old
 	// if (!player_can_see_wall(map))

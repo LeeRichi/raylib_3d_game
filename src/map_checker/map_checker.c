@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 17:31:24 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 15:06:04 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	is_surroundings_valid(t_map *map)
 int	player_can_see_wall(t_map *map) //later can split this to module functions
 {
 	int i;
-	int j;
+	int	j;
 
 	i = map->player_pos_y;
 	j = map->player_pos_x;
@@ -136,6 +136,58 @@ int	player_can_see_wall(t_map *map) //later can split this to module functions
 		j++;
 	if (map->map[i][j + 1] != '1')
 		return (0);
+	return (1);
+}
+
+char	**copy_map(char **src_map, int height)
+{
+	char	**copy;
+	int		i;
+
+	copy = malloc(sizeof(char *) * (height + 1));
+	if (!copy)
+		return (NULL);
+	i = 0;
+	while (i < height)
+	{
+		copy[i] = ft_strdup(src_map[i]);
+		if (!copy[i])
+		{
+			while (--i >= 0)
+				free(copy[i]);
+			free(copy);
+			return (NULL);
+		}
+		i++;
+	}
+	copy[i] = NULL;
+	return (copy);
+}
+
+int	no_hole_in_map(t_map *map)
+{
+	char	**temp_map;
+	t_point	size;
+	t_point	begin;
+	
+	temp_map = copy_map(map->map, map->map_line_count);
+	if (!temp_map)
+		return (0); //error
+
+
+	size.y = map->map_line_count;
+	size.x = map->coloum_count;
+
+	begin.y = map->player_pos_y;
+	begin.x = map->player_pos_x;
+
+	temp_map[begin.y][begin.x] = '0';
+	flood_fill(temp_map, size, begin);
+
+	printf("\n\n");
+	print_matrix(temp_map);
+	
+	
 	return (1);
 }
 
@@ -190,10 +242,17 @@ int	map_checker(t_map *map) //returm 1 if fail
 		exit(EXIT_FAILURE);
 	}
 
-	if (!player_can_see_wall(map))
+	if (!no_hole_in_map(map))
 	{
 		printf("Error\nPlayer cannot see wall.\n");
 		exit(EXIT_FAILURE);
 	}
+
+	//old
+	// if (!player_can_see_wall(map))
+	// {
+	// 	printf("Error\nPlayer cannot see wall.\n");
+	// 	exit(EXIT_FAILURE);
+	// }
 	return (0);
 }

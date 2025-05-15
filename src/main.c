@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:10:14 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 17:36:15 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 14:57:42 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int main(int ac, char **av)
 	game.map = &map;
 	parse_map(av[1], &map);
 
-	// print_matrix(map.map);
+	print_matrix(map.map);
 
 	if (map_checker(&map))
 	{

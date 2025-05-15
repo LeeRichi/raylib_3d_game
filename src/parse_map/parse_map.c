@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/14 17:31:48 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 14:31:23 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,11 +73,11 @@ void	parse_map(const char *map_path, t_map *map)
 				break ;
 		}
 		else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 ||
-				ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
-				{
-					save_texture(map, line);
-					free(line);
-				}
+			ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+		{
+			save_texture(map, line);
+			free(line);
+		}
 		else if (line[0] == 'F' || line[0] == 'C')
 		{
 			save_color(map, line);

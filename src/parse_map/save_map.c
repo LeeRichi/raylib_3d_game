@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:48:40 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/13 11:49:13 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 14:51:14 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	save_map(t_map *map, char **map_lines)
 			max_len = len;
 		i++;
 	}
+	map->coloum_count = max_len;
 	map->map = malloc(sizeof(char *) * (map->map_line_count + 1));
 	if (!map->map)
 		malloc_fail_exit();

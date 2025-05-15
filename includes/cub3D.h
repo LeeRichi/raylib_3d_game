@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/13 11:53:35 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/15 14:51:07 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ typedef struct s_map
 	int		floor_color;
 	int		ceiling_color;
 	char	**map; //this is map that extends with white spaces to make it rectangular
+	
 	int		map_line_count;
+	int		coloum_count;
+
 	int		player_pos_x;
 	int		player_pos_y;
 }	t_map;

@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/15 23:08:56 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/05/18 16:02:56 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,8 @@ int	map_checker(t_map *map) //returm 1 if fail
 		exit(EXIT_FAILURE);
 	}
 
-	// if (!no_hole_in_map(map))
+
+	// if (!no_invalid_hole_in_map(map))
 	// {
 	// 	printf("Error\nPlayer cannot see wall.\n");
 	// 	exit(EXIT_FAILURE);

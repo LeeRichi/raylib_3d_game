@@ -40,7 +40,7 @@ $(MLX42DIR):
 	git clone $(MLX42_REPO) $(MLX42DIR)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX42)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft -L$(MLX42DIR)/build -lmlx42 -lglfw
+	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft -L$(MLX42DIR)/build -lmlx42 -lglfw -lm
 
 $(LIBFT):
 	@make -C $(LIBFTDIR)

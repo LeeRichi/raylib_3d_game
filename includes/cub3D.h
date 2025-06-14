@@ -18,6 +18,7 @@
 # include <string.h>
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/libft/libft.h"
+# include <math.h>
 
 #ifndef MAX_LINES
 # define MAX_LINES 1024
@@ -41,11 +42,22 @@ typedef struct s_map
 	int		player_pos_y;
 }	t_map;
 
+typedef struct s_player {
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+}	t_player;
+
+
 typedef struct s_game
 {
 	mlx_t		*mlx;
 	mlx_image_t	*img;
 	t_map		*map;
+	t_player	player;
 	// Add player info, texture paths, etc.
 }	t_game;
 

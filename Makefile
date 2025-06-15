@@ -32,6 +32,7 @@ SRCS = src/main.c \
 		src/utils.c \
 		src/clean.c \
 		src/inits/game_init.c \
+		src/inits/player_init.c \
 		src/render/render.c \
 		src/handler/key_handler.c \
 		src/handler/mouse_handler.c \

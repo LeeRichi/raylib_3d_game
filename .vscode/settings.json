@@ -1,7 +1,0 @@
-{
-	"files.associations": {
-		"*.ejs": "html",
-		"*.js": "javascriptreact",
-		"cub3d.h": "c"
-	}
-}

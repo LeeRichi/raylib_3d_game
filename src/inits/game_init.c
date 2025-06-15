@@ -17,7 +17,7 @@ void game_init(t_game *game)
 	game->mlx = mlx_init(1920, 1080, "cub3D", true);
 	if (!game->mlx)
 	{
-		printf("Error: mlx_init failed");
+		printf("Error: mlx_init failed\n");
 		exit(EXIT_FAILURE);
 	}
 
@@ -35,9 +35,12 @@ void game_init(t_game *game)
 	game->textures->e_wall_texture = mlx_load_png("./assets/Photoreal_Ice_06-512x512.png");
 	game->textures->s_wall_texture = mlx_load_png("./assets/Photoreal_Ice_07-512x512.png");
 	game->textures->w_wall_texture = mlx_load_png("./assets/Photoreal_Ice_08-512x512.png");
-	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture || !game->textures->s_wall_texture || !game->textures->w_wall_texture)
+
+	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture ||
+		!game->textures->s_wall_texture || !game->textures->w_wall_texture)
 	{
 		printf("Error: mlx_load_png failed\n");
+		free_textures(game); // only textures exist so far
 		exit(EXIT_FAILURE);
 	}
 
@@ -45,9 +48,13 @@ void game_init(t_game *game)
 	game->textures->e_wall_img = mlx_texture_to_image(game->mlx, game->textures->e_wall_texture);
 	game->textures->s_wall_img = mlx_texture_to_image(game->mlx, game->textures->s_wall_texture);
 	game->textures->w_wall_img = mlx_texture_to_image(game->mlx, game->textures->w_wall_texture);
-	if (!game->textures->n_wall_img || !game->textures->e_wall_img || !game->textures->s_wall_img || !game->textures->w_wall_img)
+
+	if (!game->textures->n_wall_img || !game->textures->e_wall_img ||
+		!game->textures->s_wall_img || !game->textures->w_wall_img)
 	{
 		printf("Error: mlx_texture_to_image failed\n");
+		free_images(game);
+		free_textures(game);
 		exit(EXIT_FAILURE);
 	}
 
@@ -55,12 +62,17 @@ void game_init(t_game *game)
 	if (!game->img)
 	{
 		printf("Error: mlx_new_image failed\n");
+		free_images(game);
+		free_textures(game);
 		exit(EXIT_FAILURE);
 	}
 
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
 	{
-		printf("Error: mlx_image_to_window failed");
+		printf("Error: mlx_image_to_window failed\n");
+		mlx_delete_image(game->mlx, game->img);
+		free_images(game);
+		free_textures(game);
 		exit(EXIT_FAILURE);
 	}
 }

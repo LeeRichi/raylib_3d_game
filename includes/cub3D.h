@@ -31,11 +31,6 @@
 #define TEX_HEIGHT 64
 #endif
 
-
-double z;         // vertical position (jump offset)
-double z_vel;     // vertical velocity
-int is_jumping;   // flag to check if jumping
-
 typedef struct s_map
 {
 	char	*north_path;
@@ -102,7 +97,9 @@ void	free_lines_count(char **lines, int count);
 void	print_matrix(char **matrix);
 
 //game_init.c
-void game_init(t_game *game);
+void	game_init(t_game *game);
+//player_init.c
+void	init_player(t_game *game);
 
 //render/render.c
 void	render_map(t_game *game);
@@ -112,5 +109,13 @@ void	render_mini_map(t_game *game);
 void	handle_input(void *param);
 //src/handler/mouse_handler.c
 void	handle_mouse_move(double xpos, double ypos, void *param);
+
+//clean
+void free_map(char **map);
+void free_trims(t_map *map);
+void	free_images(t_game *game);
+void	free_textures(t_game *game);
+void    free_both_textures_and_images(t_game *game);
+void	clean_exit(t_game *game, t_map *map);
 
 #endif

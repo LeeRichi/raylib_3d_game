@@ -31,6 +31,7 @@
 #define TEX_HEIGHT 64
 #endif
 
+//**map is map that extends with white spaces to make it rectangular
 typedef struct s_map
 {
 	char	*north_path;
@@ -39,7 +40,7 @@ typedef struct s_map
 	char	*east_path;
 	int		floor_color;
 	int		ceiling_color;
-	char	**map; //this is map that extends with white spaces to make it rectangular
+	char	**map;
 
 	int		map_line_count;
 	int		coloum_count;
@@ -75,6 +76,11 @@ typedef struct s_game
 	t_map		*map;
 	t_player	player;
 	t_textures	*textures;
+	int			tab_mode;
+	int			skip_mouse_frame;
+	double		last_mouse_x;
+	    mlx_image_t *pause_text;
+    mlx_image_t *resume_text;
 }	t_game;
 
 
@@ -86,7 +92,6 @@ void	save_map(t_map *map, char **map_lines);
 void	save_color(t_map *map, char *line);
 //src/parse_map/save_texture.c
 void	save_texture(t_map *map, char *line);
-
 int		map_checker(t_map *map);
 
 //utils.c
@@ -111,11 +116,14 @@ void	handle_input(void *param);
 void	handle_mouse_move(double xpos, double ypos, void *param);
 
 //clean
-void free_map(char **map);
-void free_trims(t_map *map);
+void	free_map(char **map);
+void	free_trims(t_map *map);
 void	free_images(t_game *game);
 void	free_textures(t_game *game);
-void    free_both_textures_and_images(t_game *game);
 void	clean_exit(t_game *game, t_map *map);
+
+
+void is_tab_mode(t_game *game);
+
 
 #endif

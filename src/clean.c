@@ -70,12 +70,6 @@ void free_textures(t_game *game)
 	game->textures = NULL;
 }
 
-void    free_both_textures_and_images(t_game *game)
-{
-    free_images(game);
-    free_textures(game);
-}
-
 void	clean_exit(t_game *game, t_map *map)
 {
 	if (game->img)

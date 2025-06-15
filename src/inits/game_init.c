@@ -75,4 +75,7 @@ void game_init(t_game *game)
 		free_textures(game);
 		exit(EXIT_FAILURE);
 	}
+
+
+	game->last_mouse_x = 960;
 }

@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/18 16:02:03 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/15 16:56:49 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,17 @@
 # define MAX_LINES 1024
 #endif
 
+#ifndef TEX_WIDTH
+#define TEX_WIDTH 64
+#endif
+#ifndef TEX_HEIGHT
+#define TEX_HEIGHT 64
+#endif
+
+
+double z;         // vertical position (jump offset)
+double z_vel;     // vertical velocity
+int is_jumping;   // flag to check if jumping
 
 typedef struct s_map
 {
@@ -34,7 +45,7 @@ typedef struct s_map
 	int		floor_color;
 	int		ceiling_color;
 	char	**map; //this is map that extends with white spaces to make it rectangular
-	
+
 	int		map_line_count;
 	int		coloum_count;
 
@@ -51,6 +62,16 @@ typedef struct s_player {
 	double	plane_y;
 }	t_player;
 
+typedef struct s_textures {
+	mlx_texture_t	*n_wall_texture;
+	mlx_texture_t	*e_wall_texture;
+	mlx_texture_t	*s_wall_texture;
+	mlx_texture_t	*w_wall_texture;
+	mlx_image_t 	*n_wall_img;
+	mlx_image_t 	*e_wall_img;
+	mlx_image_t 	*s_wall_img;
+	mlx_image_t 	*w_wall_img;
+}	t_textures;
 
 typedef struct s_game
 {
@@ -58,7 +79,7 @@ typedef struct s_game
 	mlx_image_t	*img;
 	t_map		*map;
 	t_player	player;
-	// Add player info, texture paths, etc.
+	t_textures	*textures;
 }	t_game;
 
 
@@ -79,5 +100,17 @@ void	free_matrix(char **matrix);
 void	error_exit(char *reason);
 void	free_lines_count(char **lines, int count);
 void	print_matrix(char **matrix);
+
+//game_init.c
+void game_init(t_game *game);
+
+//render/render.c
+void	render_map(t_game *game);
+void	render_mini_map(t_game *game);
+
+//src/handler/keyboard_handler.c
+void	handle_input(void *param);
+//src/handler/mouse_handler.c
+void	handle_mouse_move(double xpos, double ypos, void *param);
 
 #endif

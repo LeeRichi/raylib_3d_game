@@ -6,7 +6,7 @@
 #    By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/10 18:09:12 by chlee2            #+#    #+#              #
-#    Updated: 2025/05/13 11:53:51 by chlee2           ###   ########.fr        #
+#    Updated: 2025/06/15 17:00:55 by chlee2           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ SRCS = src/main.c \
 		src/map_checker/map_checker.c \
 		src/utils.c \
 		src/clean.c \
+		src/inits/game_init.c \
+		src/render/render.c \
+		src/handler/key_handler.c \
+		src/handler/mouse_handler.c \
 
 OBJS = $(SRCS:.c=.o)
 

@@ -1,0 +1,19 @@
+NO ./textures/pics/mossy.png
+EA ./textures/pics/redbrick.png
+WE ./textures/pics/greystone.png
+SO ./textures/pics/mossy.png
+DO ./textures/pics/eagle.png
+
+F 127,127,127
+C 0,100,200
+
+1111111111
+1100000001
+1001010001
+1001010001111
+10000E0000001
+1000000001101
+1011111111101
+1011101110001
+1000000000001
+1111111111111

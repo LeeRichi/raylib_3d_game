@@ -31,10 +31,10 @@ void game_init(t_game *game)
 		exit(EXIT_FAILURE);
 	}
 
-	game->textures->n_wall_texture = mlx_load_png("./assets/Photoreal_Ice_05-512x512.png");
-	game->textures->e_wall_texture = mlx_load_png("./assets/Photoreal_Ice_06-512x512.png");
-	game->textures->s_wall_texture = mlx_load_png("./assets/Photoreal_Ice_07-512x512.png");
-	game->textures->w_wall_texture = mlx_load_png("./assets/Photoreal_Ice_08-512x512.png");
+	game->textures->n_wall_texture = mlx_load_png("./assets/Ice/Photoreal_Ice_05-512x512.png");
+	game->textures->e_wall_texture = mlx_load_png("./assets/Ice/Photoreal_Ice_06-512x512.png");
+	game->textures->s_wall_texture = mlx_load_png("./assets/Ice/Photoreal_Ice_07-512x512.png");
+	game->textures->w_wall_texture = mlx_load_png("./assets/Ice/Photoreal_Ice_08-512x512.png");
 
 	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture ||
 		!game->textures->s_wall_texture || !game->textures->w_wall_texture)

@@ -79,9 +79,22 @@ typedef struct s_game
 	int			tab_mode;
 	int			skip_mouse_frame;
 	double		last_mouse_x;
-	    mlx_image_t *pause_text;
+
+	mlx_image_t *pause_text;
     mlx_image_t *resume_text;
-		mlx_image_t *pause_overlay;
+	mlx_image_t *pause_overlay;
+
+	uint32_t	x;
+	// uint32_t	y;
+
+	double	ray_dir_x;
+	double	ray_dir_y;
+	
+	double	side_dist_x;
+	double	side_dist_y;
+
+	int step_x;
+	int step_y;
 
 }	t_game;
 
@@ -125,7 +138,11 @@ void	free_textures(t_game *game);
 void	clean_exit(t_game *game, t_map *map);
 
 
-void is_tab_mode(t_game *game);
+void	is_tab_mode(t_game *game);
+
+
+//src/render/render_pausre.c
+void	render_pause_screen(t_game *game, int show);
 
 
 #endif

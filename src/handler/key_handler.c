@@ -12,124 +12,94 @@
 
 #include "../../includes/cub3D.h"
 
-void clear_image(mlx_image_t *img)
-{
-    int w = img->width;
-    int h = img->height;
-    for (int y = 0; y < h; y++)
-        for (int x = 0; x < w; x++)
-            mlx_put_pixel(img, x, y, 0x000000FF);
-}
 
-// static bool tab_pressed_last_frame = false; // Declare outside the function if needed
-
-void render_pause_screen(t_game *game, int show)
+void clear_image_by_put_pixel(mlx_image_t *img)
 {
-	if (show)
+	int	w;
+    int	h;
+	int	x;
+	int	y;
+	
+	w = img->width;
+	h = img->height;
+	
+	y = 0;
+	while (y < h)
 	{
-		if (!game->pause_overlay)
+		x = 0;
+		while (x < w)
 		{
-			game->pause_overlay = mlx_new_image(game->mlx, 1920, 1080);
-			if (game->pause_overlay)
-			{
-				uint32_t *pixels = (uint32_t *)game->pause_overlay->pixels;
-				for (int i = 0; i < 1920 * 1080; i++)
-					pixels[i] = 0x88000000; // semi-transparent black
-				mlx_image_to_window(game->mlx, game->pause_overlay, 0, 0);
-			}
+			mlx_put_pixel(img, x, y, 0x000000FF);
+			x++;
 		}
-		if (!game->pause_text)
-			game->pause_text = mlx_put_string(game->mlx, "PAUSED", 20, 20);
-		if (!game->resume_text)
-			game->resume_text = mlx_put_string(game->mlx, "Press TAB to resume", 20, 50);
-	}
-	else
-	{
-		if (game->pause_overlay)
-		{
-			mlx_delete_image(game->mlx, game->pause_overlay);
-			game->pause_overlay = NULL;
-		}
-		if (game->pause_text)
-		{
-			mlx_delete_image(game->mlx, game->pause_text);
-			game->pause_text = NULL;
-		}
-		if (game->resume_text)
-		{
-			mlx_delete_image(game->mlx, game->resume_text);
-			game->resume_text = NULL;
-		}
+		y++;
 	}
 }
 
-static bool tab_pressed_last_frame = false;
+// void clear_pause_overlay(t_game *game)
+// {
+// 	if (game->pause_text)
+// 	{
+// 		mlx_delete_image(game->mlx, game->pause_text);
+// 		game->pause_text = NULL;
+// 	}
+// 	if (game->resume_text)
+// 	{
+// 		mlx_delete_image(game->mlx, game->resume_text);
+// 		game->resume_text = NULL;
+// 	}
+// }
 
-void handle_tab_toggle(t_game *game)
-{
-	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
-	{
-		if (!tab_pressed_last_frame)
-		{
-			game->tab_mode = !game->tab_mode;
-			if (game->tab_mode)
-			{
-				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);  // show cursor
-				render_pause_screen(game, 1);
-			}
-			else
-			{
-				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED); // lock/hide
-				game->skip_mouse_frame = true;
-				render_pause_screen(game, 0);
-			}
-		}
-		tab_pressed_last_frame = true;
-	}
-	else
-	{
-		tab_pressed_last_frame = false;
-	}
-}
+// void render_pause_screen(t_game *game, int show)
+// {
+// 	if (show)
+// 	{
+// 		if (!game->pause_text)
+// 			game->pause_text = mlx_put_string(game->mlx, "PAUSED", 20, 20);
+// 		if (!game->resume_text)
+// 			game->resume_text = mlx_put_string(game->mlx, "Press TAB to resume", 20, 50);
+// 		if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+// 		{
+// 			mlx_close_window(game->mlx);
+// 			return;
+// 		}
+// 	}
+// 	else
+// 		clear_pause_overlay(game);
+// }
 
+//toggle tab mode
 void is_tab_mode(t_game *game)
 {
 
 	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
 	{
-		if (!tab_pressed_last_frame)
+		game->tab_mode = !game->tab_mode;
+
+		if (game->tab_mode)
 		{
-			game->tab_mode = !game->tab_mode;
-
-			if (game->tab_mode)
-			{
-				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);  // show cursor
-				render_pause_screen(game, 1);
-			}
-			else
-			{
-				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED); // lock/hide
-				// Optional: recenter to prevent snap
-				// mlx_set_mouse_pos(game->mlx, 1920 / 2, 1080 / 2);
-				game->skip_mouse_frame = 1;  // <- skip mouse delta after re-lock
-				render_pause_screen(game, 0);
-
-			}
+			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);
+			render_pause_screen(game, 1);
 		}
-		tab_pressed_last_frame = true;
+		else
+		{
+			mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
+			game->skip_mouse_frame = 1;
+			render_pause_screen(game, 0);
+		}
 	}
-	else
-		tab_pressed_last_frame = false;
 }
 
+//draw 
 void	handle_input(void *param)
 {
 	t_game	*game = (t_game *)param;
 	t_player	*p = &game->player;
 	mlx_t	*mlx = game->mlx;
 	double	move_speed = 0.05;
+	double rot;
 
-	clear_image(game->img);
+	clear_image_by_put_pixel(game->img);
 
 	is_tab_mode(game);
 
@@ -140,7 +110,7 @@ void	handle_input(void *param)
 	}
 
 	// Move forward
-	if (mlx_is_key_down(mlx, MLX_KEY_W)	|| mlx_is_key_down(mlx, MLX_KEY_UP))
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
 	{
 		if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * move_speed)] != '1')
 			p->x += p->dir_x * move_speed;
@@ -149,7 +119,7 @@ void	handle_input(void *param)
 	}
 
 	// Move backward
-	if (mlx_is_key_down(mlx, MLX_KEY_S) || mlx_is_key_down(mlx, MLX_KEY_DOWN))
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
 	{
 		if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * move_speed)] != '1')
 			p->x -= p->dir_x * move_speed;
@@ -158,7 +128,7 @@ void	handle_input(void *param)
 	}
 
 	// Move right
-	if (mlx_is_key_down(mlx, MLX_KEY_A) || mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
 	{
 		if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * move_speed)] != '1')
 			p->x -= p->plane_x * move_speed;
@@ -167,7 +137,7 @@ void	handle_input(void *param)
 	}
 
 	// Move left
-	if (mlx_is_key_down(mlx, MLX_KEY_D) || mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
 	{
 		if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * move_speed)] != '1')
 			p->x += p->plane_x * move_speed;
@@ -175,13 +145,38 @@ void	handle_input(void *param)
 			p->y += p->plane_y * move_speed;
 	}
 
+	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
+	{
+		rot = -move_speed;
+
+		double old_dir_x = game->player.dir_x;
+		game->player.dir_x = game->player.dir_x * cos(-rot) - game->player.dir_y * sin(-rot);
+		game->player.dir_y = old_dir_x * sin(-rot) + game->player.dir_y * cos(-rot);
+
+		double old_plane_x = game->player.plane_x;
+		game->player.plane_x = game->player.plane_x * cos(-rot) - game->player.plane_y * sin(-rot);
+		game->player.plane_y = old_plane_x * sin(-rot) + game->player.plane_y * cos(-rot);
+	}
+
+	if (mlx_is_key_down(mlx, MLX_KEY_LEFT))
+	{
+		rot = move_speed;
+
+		double old_dir_x = game->player.dir_x;
+		game->player.dir_x = game->player.dir_x * cos(-rot) - game->player.dir_y * sin(-rot);
+		game->player.dir_y = old_dir_x * sin(-rot) + game->player.dir_y * cos(-rot);
+
+		double old_plane_x = game->player.plane_x;
+		game->player.plane_x = game->player.plane_x * cos(-rot) - game->player.plane_y * sin(-rot);
+		game->player.plane_y = old_plane_x * sin(-rot) + game->player.plane_y * cos(-rot);
+	}
+
+
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{
 		mlx_close_window(mlx);
-		//free?
 		return;
 	}
 
-	// Draw the new frame
 	render_map(game);
 }

@@ -57,7 +57,7 @@ void init_player(t_game *game)
 					game->player.plane_x = 0;
 					game->player.plane_y = -0.66;
 				}
-				return ; // stop after finding the player
+				return ;
 			}
 			j++;
 		}

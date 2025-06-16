@@ -12,37 +12,6 @@
 
 #include "../../includes/cub3D.h"
 
-// void handle_mouse_move(double xpos, double ypos, void *param)
-// {
-// 	(void)ypos;
-// 	t_game *game = (t_game *)param;
-// 	static double last_x = 960;
-// 	double sensitivity = 0.001;
-// 	double delta_x = xpos - last_x;
-
-// 	if (game->skip_mouse_frame)
-// 	{
-// 		game->skip_mouse_frame = 0;
-// 		return;
-// 	}
-
-// 	// if (game->tab_mode)
-// 	// 	return; // If we're in cursor mode, don't rotate view
-
-
-// 	last_x = xpos;
-
-// 	double rot = -delta_x * sensitivity;
-
-// 	double old_dir_x = game->player.dir_x;
-// 	game->player.dir_x = game->player.dir_x * cos(-rot) - game->player.dir_y * sin(-rot);
-// 	game->player.dir_y = old_dir_x * sin(-rot) + game->player.dir_y * cos(-rot);
-
-// 	double old_plane_x = game->player.plane_x;
-// 	game->player.plane_x = game->player.plane_x * cos(-rot) - game->player.plane_y * sin(-rot);
-// 	game->player.plane_y = old_plane_x * sin(-rot) + game->player.plane_y * cos(-rot);
-// }
-
 
 void handle_mouse_move(double xpos, double ypos, void *param)
 {

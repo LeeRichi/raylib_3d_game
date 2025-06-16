@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:49:09 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 16:49:35 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/15 23:41:39 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,11 @@ void handle_mouse_move(double xpos, double ypos, void *param)
 	(void)ypos;
 
 	t_game *game = (t_game *)param;
+
+	if (game->tab_mode)
+	{
+		return;
+	}
 	double sensitivity = 0.001;
 
 	if (game->skip_mouse_frame)

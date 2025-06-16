@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:48:56 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 17:01:43 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/15 23:39:55 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,33 +21,79 @@ void clear_image(mlx_image_t *img)
             mlx_put_pixel(img, x, y, 0x000000FF);
 }
 
+// static bool tab_pressed_last_frame = false; // Declare outside the function if needed
+
 void render_pause_screen(t_game *game, int show)
 {
-    if (show)
-    {
-        if (!game->pause_text)
-            game->pause_text = mlx_put_string(game->mlx, "PAUSED", 20, 20);
-        if (!game->resume_text)
-            game->resume_text = mlx_put_string(game->mlx, "Press TAB to resume", 20, 50);
-    }
-    else
-    {
-        if (game->pause_text)
-        {
-            mlx_delete_image(game->mlx, game->pause_text);
-            game->pause_text = NULL;
-        }
-        if (game->resume_text)
-        {
-            mlx_delete_image(game->mlx, game->resume_text);
-            game->resume_text = NULL;
-        }
-    }
+	if (show)
+	{
+		if (!game->pause_overlay)
+		{
+			game->pause_overlay = mlx_new_image(game->mlx, 1920, 1080);
+			if (game->pause_overlay)
+			{
+				uint32_t *pixels = (uint32_t *)game->pause_overlay->pixels;
+				for (int i = 0; i < 1920 * 1080; i++)
+					pixels[i] = 0x88000000; // semi-transparent black
+				mlx_image_to_window(game->mlx, game->pause_overlay, 0, 0);
+			}
+		}
+		if (!game->pause_text)
+			game->pause_text = mlx_put_string(game->mlx, "PAUSED", 20, 20);
+		if (!game->resume_text)
+			game->resume_text = mlx_put_string(game->mlx, "Press TAB to resume", 20, 50);
+	}
+	else
+	{
+		if (game->pause_overlay)
+		{
+			mlx_delete_image(game->mlx, game->pause_overlay);
+			game->pause_overlay = NULL;
+		}
+		if (game->pause_text)
+		{
+			mlx_delete_image(game->mlx, game->pause_text);
+			game->pause_text = NULL;
+		}
+		if (game->resume_text)
+		{
+			mlx_delete_image(game->mlx, game->resume_text);
+			game->resume_text = NULL;
+		}
+	}
+}
+
+static bool tab_pressed_last_frame = false;
+
+void handle_tab_toggle(t_game *game)
+{
+	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
+	{
+		if (!tab_pressed_last_frame)
+		{
+			game->tab_mode = !game->tab_mode;
+			if (game->tab_mode)
+			{
+				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_NORMAL);  // show cursor
+				render_pause_screen(game, 1);
+			}
+			else
+			{
+				mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED); // lock/hide
+				game->skip_mouse_frame = true;
+				render_pause_screen(game, 0);
+			}
+		}
+		tab_pressed_last_frame = true;
+	}
+	else
+	{
+		tab_pressed_last_frame = false;
+	}
 }
 
 void is_tab_mode(t_game *game)
 {
-	bool tab_pressed_last_frame = false;
 
 	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
 	{

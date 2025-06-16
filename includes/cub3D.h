@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 16:56:49 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/15 23:34:51 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ typedef struct s_game
 	double		last_mouse_x;
 	    mlx_image_t *pause_text;
     mlx_image_t *resume_text;
+		mlx_image_t *pause_overlay;
+
 }	t_game;
 
 

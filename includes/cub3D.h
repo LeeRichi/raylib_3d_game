@@ -67,6 +67,9 @@ typedef struct s_textures {
 	mlx_image_t 	*e_wall_img;
 	mlx_image_t 	*s_wall_img;
 	mlx_image_t 	*w_wall_img;
+	uint32_t *pixels;
+    int32_t width;
+    int32_t height;
 }	t_textures;
 
 typedef struct s_game

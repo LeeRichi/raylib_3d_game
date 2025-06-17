@@ -145,6 +145,48 @@ void	handle_input(void *param)
 			p->y += p->plane_y * move_speed;
 	}
 
+	// double buffer = 0.1;
+
+	// // Move forward
+	// if (mlx_is_key_down(mlx, MLX_KEY_W))
+	// {
+	// 	// if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * move_speed)] != '1')
+	// 	// 	p->x += p->dir_x * move_speed;
+	// 	// if (game->map->map[(int)(p->y + p->dir_y * move_speed)][(int)(p->x)] != '1')
+	// 	// 	p->y += p->dir_y * move_speed;
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * (move_speed + buffer))] != '1')
+	// 		p->x += p->dir_x * move_speed;
+	// 	if (game->map->map[(int)(p->y + p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 		p->y += p->dir_y * move_speed;
+	// }
+
+	// // Move backward (S)
+	// if (mlx_is_key_down(mlx, MLX_KEY_S))
+	// {
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * (move_speed + buffer))] != '1')
+	// 		p->x -= p->dir_x * move_speed;
+	// 	if (game->map->map[(int)(p->y - p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 		p->y -= p->dir_y * move_speed;
+	// }
+
+	// // Move left (A) — strafe left
+	// if (mlx_is_key_down(mlx, MLX_KEY_A))
+	// {
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * (move_speed + buffer))] != '1')
+	// 		p->x -= p->plane_x * move_speed;
+	// 	if (game->map->map[(int)(p->y - p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 		p->y -= p->plane_y * move_speed;
+	// }
+
+	// // Move right (D) — strafe right
+	// if (mlx_is_key_down(mlx, MLX_KEY_D))
+	// {
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * (move_speed + buffer))] != '1')
+	// 		p->x += p->plane_x * move_speed;
+	// 	if (game->map->map[(int)(p->y + p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 		p->y += p->plane_y * move_speed;
+	// }
+
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
 		rot = -move_speed;

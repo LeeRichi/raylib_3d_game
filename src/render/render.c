@@ -196,29 +196,20 @@ void render_map(t_game *game)
 
 	for (int x = 0; x < w; x++)
 	{
-		// Calculate ray position and direction
 		double camera_x = 2 * x / (double)w - 1;
 		double ray_dir_x = p->dir_x + p->plane_x * camera_x;
 		double ray_dir_y = p->dir_y + p->plane_y * camera_x;
 
-		// Map grid position
 		int map_x = (int)p->x;
 		int map_y = (int)p->y;
 
-		// Length of ray from one x or y side to next x or y side
 		double delta_dist_x = fabs(1 / ray_dir_x);
 		double delta_dist_y = fabs(1 / ray_dir_y);
-
 		double side_dist_x;
 		double side_dist_y;
 
-		int step_x;
-		int step_y;
+		int step_x, step_y, hit = 0, side;
 
-		int hit = 0; // wall hit flag
-		int side;    // was a NS or EW wall hit?
-
-		// Calculate step and initial side_dist
 		if (ray_dir_x < 0)
 		{
 			step_x = -1;
@@ -240,7 +231,6 @@ void render_map(t_game *game)
 			side_dist_y = (map_y + 1.0 - p->y) * delta_dist_y;
 		}
 
-		// Perform DDA
 		while (!hit)
 		{
 			if (side_dist_x < side_dist_y)
@@ -258,34 +248,22 @@ void render_map(t_game *game)
 			if (map_y >= 0 && map_y < map->map_line_count &&
 				map_x >= 0 && map_x < (int)ft_strlen(map->map[map_y]) &&
 				map->map[map_y][map_x] == '1')
-			{
-				// printf("test: %d", map_y);
-					printf("test2: %d", map_x);
-						printf("test: %d", map_y);
-
 				hit = 1;
-			}
 		}
 
-		// Calculate distance to wall
-		double perp_wall_dist;
-		if (side == 0)
-			perp_wall_dist = (side_dist_x - delta_dist_x);
-		else
-			perp_wall_dist = (side_dist_y - delta_dist_y);
+		double perp_wall_dist = (side == 0)
+			? (side_dist_x - delta_dist_x)
+			: (side_dist_y - delta_dist_y);
+
+		if (perp_wall_dist < 1e-6)
+			perp_wall_dist = 1e-6;
 
 		int line_height = (int)(h / perp_wall_dist);
 
-		int cam_offset = 0;
-		// int cam_offset = -(int)(game->player.z * 100); // adjust scale to match visual
-
-		int draw_start = -line_height / 2 + h / 2 + cam_offset;
-		int draw_end = line_height / 2 + h / 2 + cam_offset;
-
-		if (draw_start < 0)
-			draw_start = 0;
-		if (draw_end >= h)
-			draw_end = h - 1;
+		int draw_start = -line_height / 2 + h / 2;
+		int draw_end = line_height / 2 + h / 2;
+		if (draw_start < 0) draw_start = 0;
+		if (draw_end >= h) draw_end = h - 1;
 
 		mlx_texture_t *tex;
 		if (side == 0 && ray_dir_x < 0)
@@ -302,16 +280,28 @@ void render_map(t_game *game)
 			wall_x = p->y + perp_wall_dist * ray_dir_y;
 		else
 			wall_x = p->x + perp_wall_dist * ray_dir_x;
-		wall_x -= floor(wall_x);  // 0.0 to 1.0
+		wall_x -= floor(wall_x);
 
-		int tex_x = (int)(wall_x * (double)(tex->width));
+		uint32_t tex_x = (int)(wall_x * (double)(tex->width));
+
+		tex_x = tex_x < 0 ? 0 : tex_x;
+		tex_x = tex_x >= tex->width ? tex->width - 1 : tex_x;
+
 		if ((side == 0 && ray_dir_x > 0) || (side == 1 && ray_dir_y < 0))
 			tex_x = tex->width - tex_x - 1;
 
+
+		// STEP and texture coordinate setup
+		double step = 1.0 * tex->height / line_height;
+		double tex_pos = (draw_start - h / 2 + line_height / 2) * step;
+
 		for (int y = draw_start; y < draw_end; y++)
 		{
-			int d = y * 256 - h * 128 + line_height * 128;
-			int tex_y = ((d * tex->height) / line_height) / 256;
+			uint32_t tex_y = (int)tex_pos;
+			tex_pos += step;
+
+			if (tex_y < 0) tex_y = 0;
+			if (tex_y >= tex->height) tex_y = tex->height - 1;
 
 			int i = (tex_y * tex->width + tex_x) * 4;
 			uint8_t r = tex->pixels[i];
@@ -321,9 +311,24 @@ void render_map(t_game *game)
 
 			mlx_put_pixel(game->img, x, y, (r << 24 | g << 16 | b << 8 | a));
 		}
+
+		//old
+		// for (int y = draw_start; y < draw_end; y++)
+		// {
+		// 	int d = y * 256 - h * 128 + line_height * 128;
+			
+		// 	int tex_y = ((d * tex->height) / line_height) / 256;
+
+		// 	int i = (tex_y * tex->width + tex_x) * 4;
+		// 	uint8_t r = tex->pixels[i];
+		// 	uint8_t g = tex->pixels[i + 1];
+		// 	uint8_t b = tex->pixels[i + 2];
+		// 	uint8_t a = tex->pixels[i + 3];
+
+		// 	mlx_put_pixel(game->img, x, y, (r << 24 | g << 16 | b << 8 | a));
+		// }
 	}
 }
-
 
 
 
@@ -361,6 +366,10 @@ void render_map(t_game *game)
 // // 		}
 // // 	}
 // // }
+
+
+
+
 
 
 

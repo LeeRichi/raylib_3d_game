@@ -87,11 +87,14 @@ typedef struct s_game
     mlx_image_t *resume_text;
 	mlx_image_t *pause_overlay;
 
-	uint32_t	x;
+	int	x;
 	// uint32_t	y;
 
 	double	ray_dir_x;
 	double	ray_dir_y;
+
+	double delta_dist_x;
+	double delta_dist_y;
 	
 	double	side_dist_x;
 	double	side_dist_y;

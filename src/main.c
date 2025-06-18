@@ -25,7 +25,7 @@ int	main(int ac, char **av)
 {
 	t_game	game;
 	t_map	map;
-
+	
 	ft_bzero(&game, sizeof(t_game));
 	ft_bzero(&map, sizeof(t_map));
 	arg_checker(ac, av);

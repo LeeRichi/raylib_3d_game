@@ -32,86 +32,85 @@ void render_map(t_game *game)
 	{
 		calculate_ray_direction(game, w);
 
-		int map_x = (int)p->x;
-		int map_y = (int)p->y;
+		game->map_x = (int)p->x;
+		game->map_y = (int)p->y;
 
-		double delta_dist_x = fabs(1 / game->ray_dir_x);
-		double delta_dist_y = fabs(1 / game->ray_dir_y);
-		double side_dist_x;
-		double side_dist_y;
+		game->delta_dist_x = fabs(1 / game->ray_dir_x);
+		game->delta_dist_y = fabs(1 / game->ray_dir_y);
 
-		int step_x, step_y, hit = 0, side;
+		game->hit = 0;
 
 		if (game->ray_dir_x < 0)
 		{
-			step_x = -1;
-			side_dist_x = (p->x - map_x) * delta_dist_x;
+			game->step_x = -1;
+			game->side_dist_x = (p->x - game->map_x) * game->delta_dist_x;
 		}
 		else
 		{
-			step_x = 1;
-			side_dist_x = (map_x + 1.0 - p->x) * delta_dist_x;
+			game->step_x = 1;
+			game->side_dist_x = (game->map_x + 1.0 - p->x) * game->delta_dist_x;
 		}
 		if (game->ray_dir_y < 0)
 		{
-			step_y = -1;
-			side_dist_y = (p->y - map_y) * delta_dist_y;
+			game->step_y = -1;
+			game->side_dist_y = (p->y - game->map_y) * game->delta_dist_y;
 		}
 		else
 		{
-			step_y = 1;
-			side_dist_y = (map_y + 1.0 - p->y) * delta_dist_y;
+			game->step_y = 1;
+			game->side_dist_y = (game->map_y + 1.0 - p->y) * game->delta_dist_y;
 		}
 
-		while (!hit)
+		while (!game->hit)
 		{
-			if (side_dist_x < side_dist_y)
+			if (game->side_dist_x < game->side_dist_y)
 			{
-				side_dist_x += delta_dist_x;
-				map_x += step_x;
-				side = 0;
+				game->side_dist_x += game->delta_dist_x;
+				game->map_x += game->step_x;
+				game->side = 0;
 			}
 			else
 			{
-				side_dist_y += delta_dist_y;
-				map_y += step_y;
-				side = 1;
+				game->side_dist_y += game->delta_dist_y;
+				game->map_y += game->step_y;
+				game->side = 1;
 			}
-			if (map_y >= 0 && map_y < map->map_line_count &&
-				map_x >= 0 && map_x < (int)ft_strlen(map->map[map_y]) &&
-				map->map[map_y][map_x] == '1')
-				hit = 1;
+			if (game->map_y >= 0 && game->map_y < map->map_line_count &&
+				game->map_x >= 0 && game->map_x < (int)ft_strlen(map->map[game->map_y]) &&
+				map->map[game->map_y][game->map_x] == '1')
+				game->hit = 1;
 		}
 
-		double perp_wall_dist = (side == 0)
-			? (side_dist_x - delta_dist_x)
-			: (side_dist_y - delta_dist_y);
+		game->perp_wall_dist = (game->side == 0)
+			? (game->side_dist_x - game->delta_dist_x)
+			: (game->side_dist_y - game->delta_dist_y);
 
-		if (perp_wall_dist < 1e-6)
-			perp_wall_dist = 1e-6;
+		if (game->perp_wall_dist < 1e-6)
+			game->perp_wall_dist = 1e-6;
 
-		int line_height = (int)(h / perp_wall_dist);
+		int line_height = (int)(h / game->perp_wall_dist);
+		game->line_height = (int)(h / game->perp_wall_dist);
 
 		int draw_start = -line_height / 2 + h / 2;
-		int draw_end = line_height / 2 + h / 2;
+		int draw_end = game->line_height / 2 + h / 2;
 		if (draw_start < 0) draw_start = 0;
 		if (draw_end >= h) draw_end = h - 1;
 
 		mlx_texture_t *tex;
-		if (side == 0 && game->ray_dir_x < 0)
+		if (game->side == 0 && game->ray_dir_x < 0)
 			tex = game->textures->w_wall_texture;
-		else if (side == 0 && game->ray_dir_x >= 0)
+		else if (game->side == 0 && game->ray_dir_x >= 0)
 			tex = game->textures->e_wall_texture;
-		else if (side == 1 && game->ray_dir_y < 0)
+		else if (game->side == 1 && game->ray_dir_y < 0)
 			tex = game->textures->n_wall_texture;
 		else
 			tex = game->textures->s_wall_texture;
 
 		double wall_x;
-		if (side == 0)
-			wall_x = p->y + perp_wall_dist * game->ray_dir_y;
+		if (game->side == 0)
+			wall_x = p->y + game->perp_wall_dist * game->ray_dir_y;
 		else
-			wall_x = p->x + perp_wall_dist * game->ray_dir_x;
+			wall_x = p->x + game->perp_wall_dist * game->ray_dir_x;
 		wall_x -= floor(wall_x);
 
 		uint32_t tex_x = (int)(wall_x * (double)(tex->width));
@@ -119,12 +118,12 @@ void render_map(t_game *game)
 		tex_x = tex_x < 0 ? 0 : tex_x;
 		tex_x = tex_x >= tex->width ? tex->width - 1 : tex_x;
 
-		if ((side == 0 && game->ray_dir_x > 0) || (side == 1 && game->ray_dir_y < 0))
+		if ((game->side == 0 && game->ray_dir_x > 0) || (game->side == 1 && game->ray_dir_y < 0))
 			tex_x = tex->width - tex_x - 1;
 
 		// STEP and texture coordinate setup
-		double step = 1.0 * tex->height / line_height;
-		double tex_pos = (draw_start - h / 2 + line_height / 2) * step;
+		double step = 1.0 * tex->height / game->line_height;
+		double tex_pos = (draw_start - h / 2 + game->line_height / 2) * step;
 
 		for (int y = draw_start; y < draw_end; y++)
 		{

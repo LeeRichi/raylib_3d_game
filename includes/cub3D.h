@@ -102,6 +102,19 @@ typedef struct s_game
 	int step_x;
 	int step_y;
 
+	int hit;
+	int side;
+
+	int map_x;
+	int map_y;
+
+	double perp_wall_dist;
+	
+	int line_height;
+
+	int draw_start;
+	int draw_end;
+
 }	t_game;
 
 

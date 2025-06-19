@@ -12,31 +12,15 @@
 
 #include "../../includes/cub3D.h"
 
-void	save_map(t_map *map, char **map_lines)
+void	save_map_helper(t_map *map, size_t max_len, char **map_lines)
 {
 	int		i;
-	size_t	max_len;
+	size_t	len;
 
-	map->map_line_count = 0;
-	while (map_lines[map->map_line_count])
-		map->map_line_count++;
-	max_len = 0;
 	i = 0;
 	while (i < map->map_line_count)
 	{
-		size_t len = ft_strlen(map_lines[i]);
-		if (len > max_len)
-			max_len = len;
-		i++;
-	}
-	map->coloum_count = max_len;
-	map->map = malloc(sizeof(char *) * (map->map_line_count + 1));
-	if (!map->map)
-		malloc_fail_exit();
-	i = 0;
-	while (i < map->map_line_count)
-	{
-		size_t len = ft_strlen(map_lines[i]);
+		len = ft_strlen(map_lines[i]);
 		map->map[i] = malloc(max_len + 1);
 		if (!map->map[i])
 		{
@@ -52,4 +36,29 @@ void	save_map(t_map *map, char **map_lines)
 		i++;
 	}
 	map->map[i] = NULL;
+}
+
+void	save_map(t_map *map, char **map_lines)
+{
+	int		i;
+	size_t	max_len;
+	size_t	len;
+
+	map->map_line_count = 0;
+	while (map_lines[map->map_line_count])
+		map->map_line_count++;
+	max_len = 0;
+	i = 0;
+	while (i < map->map_line_count)
+	{
+		len = ft_strlen(map_lines[i]);
+		if (len > max_len)
+			max_len = len;
+		i++;
+	}
+	map->coloum_count = max_len;
+	map->map = malloc(sizeof(char *) * (map->map_line_count + 1));
+	if (!map->map)
+		malloc_fail_exit();
+	save_map_helper(map, max_len, map_lines);
 }

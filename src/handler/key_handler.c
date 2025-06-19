@@ -90,7 +90,6 @@ void is_tab_mode(t_game *game)
 	}
 }
 
-//draw 
 void	handle_input(void *param)
 {
 	t_game	*game = (t_game *)param;
@@ -110,82 +109,78 @@ void	handle_input(void *param)
 	}
 
 	// Move forward
-	if (mlx_is_key_down(mlx, MLX_KEY_W))
-	{
-		if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * move_speed)] != '1')
-			p->x += p->dir_x * move_speed;
-		if (game->map->map[(int)(p->y + p->dir_y * move_speed)][(int)(p->x)] != '1')
-			p->y += p->dir_y * move_speed;
-	}
-
-	// Move backward
-	if (mlx_is_key_down(mlx, MLX_KEY_S))
-	{
-		if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * move_speed)] != '1')
-			p->x -= p->dir_x * move_speed;
-		if (game->map->map[(int)(p->y - p->dir_y * move_speed)][(int)(p->x)] != '1')
-			p->y -= p->dir_y * move_speed;
-	}
-
-	// Move right
-	if (mlx_is_key_down(mlx, MLX_KEY_A))
-	{
-		if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * move_speed)] != '1')
-			p->x -= p->plane_x * move_speed;
-		if (game->map->map[(int)(p->y - p->plane_y * move_speed)][(int)(p->x)] != '1')
-			p->y -= p->plane_y * move_speed;
-	}
-
-	// Move left
-	if (mlx_is_key_down(mlx, MLX_KEY_D))
-	{
-		if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * move_speed)] != '1')
-			p->x += p->plane_x * move_speed;
-		if (game->map->map[(int)(p->y + p->plane_y * move_speed)][(int)(p->x)] != '1')
-			p->y += p->plane_y * move_speed;
-	}
-
-	// double buffer = 0.1;
-
-	// // Move forward
 	// if (mlx_is_key_down(mlx, MLX_KEY_W))
 	// {
-	// 	// if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * move_speed)] != '1')
-	// 	// 	p->x += p->dir_x * move_speed;
-	// 	// if (game->map->map[(int)(p->y + p->dir_y * move_speed)][(int)(p->x)] != '1')
-	// 	// 	p->y += p->dir_y * move_speed;
-	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * (move_speed + buffer))] != '1')
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * move_speed)] != '1')
 	// 		p->x += p->dir_x * move_speed;
-	// 	if (game->map->map[(int)(p->y + p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 	if (game->map->map[(int)(p->y + p->dir_y * move_speed)][(int)(p->x)] != '1')
 	// 		p->y += p->dir_y * move_speed;
 	// }
 
-	// // Move backward (S)
+	// // Move backward
 	// if (mlx_is_key_down(mlx, MLX_KEY_S))
 	// {
-	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * (move_speed + buffer))] != '1')
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * move_speed)] != '1')
 	// 		p->x -= p->dir_x * move_speed;
-	// 	if (game->map->map[(int)(p->y - p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 	if (game->map->map[(int)(p->y - p->dir_y * move_speed)][(int)(p->x)] != '1')
 	// 		p->y -= p->dir_y * move_speed;
 	// }
 
-	// // Move left (A) — strafe left
+	// // Move right
 	// if (mlx_is_key_down(mlx, MLX_KEY_A))
 	// {
-	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * (move_speed + buffer))] != '1')
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * move_speed)] != '1')
 	// 		p->x -= p->plane_x * move_speed;
-	// 	if (game->map->map[(int)(p->y - p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 	if (game->map->map[(int)(p->y - p->plane_y * move_speed)][(int)(p->x)] != '1')
 	// 		p->y -= p->plane_y * move_speed;
 	// }
 
-	// // Move right (D) — strafe right
+	// // Move left
 	// if (mlx_is_key_down(mlx, MLX_KEY_D))
 	// {
-	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * (move_speed + buffer))] != '1')
+	// 	if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * move_speed)] != '1')
 	// 		p->x += p->plane_x * move_speed;
-	// 	if (game->map->map[(int)(p->y + p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+	// 	if (game->map->map[(int)(p->y + p->plane_y * move_speed)][(int)(p->x)] != '1')
 	// 		p->y += p->plane_y * move_speed;
 	// }
+
+	double buffer = 0.08;
+
+	// Move forward
+	if (mlx_is_key_down(mlx, MLX_KEY_W))
+	{
+		if (game->map->map[(int)(p->y)][(int)(p->x + p->dir_x * (move_speed + buffer))] != '1')
+			p->x += p->dir_x * move_speed;
+		if (game->map->map[(int)(p->y + p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+			p->y += p->dir_y * move_speed;
+	}
+
+	// Move backward (S)
+	if (mlx_is_key_down(mlx, MLX_KEY_S))
+	{
+		if (game->map->map[(int)(p->y)][(int)(p->x - p->dir_x * (move_speed + buffer))] != '1')
+			p->x -= p->dir_x * move_speed;
+		if (game->map->map[(int)(p->y - p->dir_y * (move_speed + buffer))][(int)(p->x)] != '1')
+			p->y -= p->dir_y * move_speed;
+	}
+
+	// Move left (A) — strafe left
+	if (mlx_is_key_down(mlx, MLX_KEY_A))
+	{
+		if (game->map->map[(int)(p->y)][(int)(p->x - p->plane_x * (move_speed + buffer))] != '1')
+			p->x -= p->plane_x * move_speed;
+		if (game->map->map[(int)(p->y - p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+			p->y -= p->plane_y * move_speed;
+	}
+
+	// Move right (D) — strafe right
+	if (mlx_is_key_down(mlx, MLX_KEY_D))
+	{
+		if (game->map->map[(int)(p->y)][(int)(p->x + p->plane_x * (move_speed + buffer))] != '1')
+			p->x += p->plane_x * move_speed;
+		if (game->map->map[(int)(p->y + p->plane_y * (move_speed + buffer))][(int)(p->x)] != '1')
+			p->y += p->plane_y * move_speed;
+	}
 
 	if (mlx_is_key_down(mlx, MLX_KEY_RIGHT))
 	{
@@ -212,7 +207,6 @@ void	handle_input(void *param)
 		game->player.plane_x = game->player.plane_x * cos(-rot) - game->player.plane_y * sin(-rot);
 		game->player.plane_y = old_plane_x * sin(-rot) + game->player.plane_y * cos(-rot);
 	}
-
 
 	if (mlx_is_key_down(mlx, MLX_KEY_ESCAPE))
 	{

@@ -21,7 +21,7 @@
 # include <math.h>
 
 #ifndef MAX_LINES
-# define MAX_LINES 1024
+# define MAX_LINES 500
 #endif
 
 #ifndef TEX_WIDTH
@@ -47,6 +47,9 @@ typedef struct s_map
 
 	int		player_pos_x;
 	int		player_pos_y;
+
+	int		map_started_flag;
+	int		map_index;
 }	t_map;
 
 typedef struct s_player {
@@ -87,8 +90,9 @@ typedef struct s_game
     mlx_image_t *resume_text;
 	mlx_image_t *pause_overlay;
 
-	int	x;
-	// uint32_t	y;
+	uint32_t	x;
+
+	uint32_t	y;
 
 	double	ray_dir_x;
 	double	ray_dir_y;
@@ -113,8 +117,21 @@ typedef struct s_game
 	int line_height;
 
 	int draw_start;
-	int draw_end;
+	uint32_t draw_end;
 
+	mlx_texture_t *tex;
+
+	double wall_x;
+
+	uint32_t tex_x;
+
+	uint32_t tex_y;
+
+
+	double step;
+	double tex_pos;
+
+	// int	w;
 }	t_game;
 
 
@@ -144,6 +161,11 @@ void	init_player(t_game *game);
 void	render_map(t_game *game);
 void	render_mini_map(t_game *game);
 
+//render/render_helper.c
+void	calculate_ray_direction(t_game *game, int w);
+void	setup_dda(t_game *game, t_player *p);
+void	perform_dda(t_game *game, t_map *map);
+
 //src/handler/keyboard_handler.c
 void	handle_input(void *param);
 //src/handler/mouse_handler.c
@@ -162,6 +184,10 @@ void	is_tab_mode(t_game *game);
 
 //src/render/render_pausre.c
 void	render_pause_screen(t_game *game, int show);
+
+//src/render/render_minimap.c
+void render_mini_map(t_game *game);
+
 
 
 #endif

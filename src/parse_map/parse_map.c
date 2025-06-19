@@ -12,8 +12,6 @@
 
 #include "../../includes/cub3D.h"
 
-//later change things to static if not used in other files
-
 int	is_empty_line(char *line)
 {
 	while (*line)
@@ -53,68 +51,88 @@ void	trim_newline(char *line)
 		*newline_pos = '\0';
 }
 
+void too_many_lines_plz_clean(int fd, char **map_lines, t_map *map)
+{
+	printf("Error: Too many lines in map\n");
+	close(fd);
+	free_lines_count(map_lines, map->map_index);
+	exit(EXIT_FAILURE);
+}
+
+int one_of_the_dir(char *line)
+{
+	if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 ||
+			ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
+			return (1);
+	return (0);
+}
+
+void get_lines_helper_helper(t_map *map, char *line, char **map_lines)
+{
+	map->map_started_flag = 1;
+	trim_newline(line);
+	map_lines[map->map_index++] = line;
+}
+
+void	get_lines_helper(char *line, int fd, t_map *map, char **map_lines)
+{
+	line = get_next_line(fd);
+	while (line)
+	{
+		if (is_empty_line(line))
+		{
+			free(line);
+			if (map->map_started_flag)
+				break ;
+		}
+		else if (one_of_the_dir(line))
+			save_texture(map, line);
+		else if (line[0] == 'F' || line[0] == 'C')
+			save_color(map, line);
+		else if (!map->map_started_flag && is_map_line(line))
+			get_lines_helper_helper(map, line, map_lines);
+		// {
+		// 	map->map_started_flag = 1;
+		// 	trim_newline(line);
+		// 	map_lines[map->map_index++] = line;
+		// }
+		else if (map->map_started_flag)
+		{
+			trim_newline(line);
+			map_lines[map->map_index++] = line;
+		}
+		else
+			printf("Warning: Unknown line: %s\n", line), free(line);
+		if (map->map_index >= MAX_LINES)
+			too_many_lines_plz_clean(fd, map_lines, map);
+		line = get_next_line(fd);
+	}
+}
+
 void	parse_map(const char *map_path, t_map *map)
 {
 	int		fd;
 	char	*line = NULL;
 	char	*map_lines[MAX_LINES];
-	int		map_started_flag = 0;
-	int		map_index = 0;
 
+	map->map_started_flag = 0;
+	map->map_index = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (perror("open"), exit(EXIT_FAILURE));
-	while ((line = get_next_line(fd)))
-	{
-		if (is_empty_line(line))
-		{
-			free(line);
-			if (map_started_flag)
-				break ;
-		}
-		else if (ft_strncmp(line, "NO ", 3) == 0 || ft_strncmp(line, "SO ", 3) == 0 ||
-			ft_strncmp(line, "WE ", 3) == 0 || ft_strncmp(line, "EA ", 3) == 0)
-		{
-			save_texture(map, line);
-			free(line);
-		}
-		else if (line[0] == 'F' || line[0] == 'C')
-		{
-			save_color(map, line);
-			free(line);
-		}
-		else if (!map_started_flag && is_map_line(line))
-		{
-			map_started_flag = 1;
-			trim_newline(line);
-			map_lines[map_index++] = line;
-		}
-		else if (map_started_flag)
-		{
-			trim_newline(line);
-			map_lines[map_index++] = line;
-		}
-		else
-			printf("Warning: Unknown line: %s\n", line), free(line); //get back later, for now it is just empty lines //might not need this line
-		if (map_index >= MAX_LINES)
-		{
-			printf("Error: Too many lines in map\n");
-			close(fd);
-			free_lines_count(map_lines, map_index);
-			exit(EXIT_FAILURE);
-		}
-	}
+
+	get_lines_helper(line, fd, map, map_lines);
+
 	if (!texture_and_color_is_complete(map))
 	{
 		printf("Error: Missing texture paths or color codes\n");
 		close(fd);
-		free_lines_count(map_lines, map_index);
+		free_lines_count(map_lines, map->map_index);
 		exit(EXIT_FAILURE);
 	}
-	map_lines[map_index] = NULL;
+	map_lines[map->map_index] = NULL;
 	save_map(map, map_lines);
-	//garbege lines after map ends checker
-	while ((line = get_next_line(fd)))
+	while (line)
 	{
 		if (!is_empty_line(line))
 		{
@@ -124,8 +142,7 @@ void	parse_map(const char *map_path, t_map *map)
 			exit(EXIT_FAILURE);
 		}
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 }
-
-

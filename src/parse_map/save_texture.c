@@ -22,4 +22,5 @@ void	save_texture(t_map *map, char *line)
 		map->west_path = ft_strtrim(line + 3, " \n");
 	else if (ft_strncmp(line, "EA ", 3) == 0)
 		map->east_path = ft_strtrim(line + 3, " \n");
+	free(line);
 }

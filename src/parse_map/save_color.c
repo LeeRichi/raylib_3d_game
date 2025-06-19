@@ -14,8 +14,9 @@
 
 static int	is_valid_number(char *str)
 {
-	int	i = 0;
+	int	i;
 
+	i = 0;
 	if (!str || !*str)
 		return (0);
 	while (str[i])
@@ -59,9 +60,11 @@ static void	translate_color(t_map *map, char *line, char *which)
 		error_exit("Invalid color format");
 	}
 	if (ft_strcmp(which, "F") == 0)
-		map->floor_color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+		map->floor_color = (ft_atoi(rgb[0]) << 16)
+			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
 	else if (ft_strcmp(which, "C") == 0)
-		map->ceiling_color = (ft_atoi(rgb[0]) << 16) | (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+		map->ceiling_color = (ft_atoi(rgb[0]) << 16)
+			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
 	free_matrix(rgb);
 }
 
@@ -71,4 +74,5 @@ void	save_color(t_map *map, char *line)
 		translate_color(map, line, "F");
 	else if (ft_strncmp(line, "C ", 2) == 0)
 		translate_color(map, line, "C");
+	free(line);
 }

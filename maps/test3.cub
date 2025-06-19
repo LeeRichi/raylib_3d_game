@@ -1,7 +1,7 @@
-NO ./assets/Ice/Photoreal_Ice_01-512x512.png
-EA ./assets/Ice/Photoreal_Ice_02-512x512.png
-WE ./assets/Ice/Photoreal_Ice_03-512x512.png
-SO ./assets/Ice/Photoreal_Ice_04-512x512.png
+NO ./textures/pics/mossy.png
+EA ./textures/pics/redbrick.png
+WE ./textures/pics/greystone.png
+SO ./textures/pics/mossy.png
 DO ./textures/pics/eagle.png
 
 F 127,127,127

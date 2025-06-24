@@ -91,7 +91,6 @@ typedef struct s_game
 	mlx_image_t *pause_overlay;
 
 	uint32_t	x;
-
 	uint32_t	y;
 
 	double	ray_dir_x;

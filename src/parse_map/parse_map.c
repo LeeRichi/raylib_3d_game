@@ -16,6 +16,7 @@ int	is_empty_line(char *line)
 {
 	while (*line)
 	{
+		printf("%s", line);
 		if (*line != ' ' && *line != '\t' && *line != '\n')
 			return (0);
 		line++;
@@ -37,7 +38,7 @@ int	is_map_line(char *line)
 int	texture_and_color_is_complete(t_map *map)
 {
 	if (map->north_path && map->south_path && map->west_path && map->east_path
-		&& map->floor_color != -1 && map->ceiling_color != -1)
+		&& map->floor_color != 0 && map->ceiling_color != 0)
 		return (1);
 	return (0);
 }
@@ -109,6 +110,22 @@ void	get_lines_helper(char *line, int fd, t_map *map, char **map_lines)
 	}
 }
 
+void missing_texture_exit(int fd, t_map *map, char **map_lines)
+{
+	printf("Error: Missing texture paths or color codes\n");
+	close(fd);
+	free_lines_count(map_lines, map->map_index);
+	exit(EXIT_FAILURE);
+}
+
+void	garbage_line_exit(char *line, int fd)
+{
+	printf("Error: Garbage line after map ends: %s\n", line);
+	free(line);
+	close(fd);
+	exit(EXIT_FAILURE);
+}
+
 void	parse_map(const char *map_path, t_map *map)
 {
 	int		fd;
@@ -120,26 +137,23 @@ void	parse_map(const char *map_path, t_map *map)
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (perror("open"), exit(EXIT_FAILURE));
-
 	get_lines_helper(line, fd, map, map_lines);
-
+	
 	if (!texture_and_color_is_complete(map))
-	{
-		printf("Error: Missing texture paths or color codes\n");
-		close(fd);
-		free_lines_count(map_lines, map->map_index);
-		exit(EXIT_FAILURE);
-	}
+	missing_texture_exit(fd, map, map_lines);
 	map_lines[map->map_index] = NULL;
+	//temp
+	print_matrix(map_lines);
 	save_map(map, map_lines);
 	while (line)
 	{
 		if (!is_empty_line(line))
 		{
-			printf("Error: Garbage line after map ends: %s\n", line);
-			free(line);
-			close(fd);
-			exit(EXIT_FAILURE);
+			// printf("Error: Garbage line after map ends: %s\n", line);
+			// free(line);
+			// close(fd);
+			// exit(EXIT_FAILURE);
+			garbage_line_exit(line, fd);
 		}
 		free(line);
 		line = get_next_line(fd);

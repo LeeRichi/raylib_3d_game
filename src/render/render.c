@@ -77,6 +77,31 @@ void	draw_each_col(t_game *game)
 	}
 }
 
+void	render_ceiling_and_floor(t_game *game)
+{
+	uint32_t	*pixels;
+	int			y;
+	int			x;
+	uint32_t	color;
+
+	pixels = (uint32_t *)game->img->pixels;
+	y = 0;
+	while (y < (int)game->img->height)
+	{
+		if (y < (int)game->img->height / 2)
+			color = game->map->ceiling_color;
+		else
+			color = game->map->floor_color;
+		x = 0;
+		while (x < (int)game->img->width)
+		{
+			pixels[y * (int)game->img->width + x] = color;
+			x++;
+		}
+		y++;
+	}
+}
+
 void	render_map(t_game *game)
 {
 	t_player	*p;
@@ -84,6 +109,7 @@ void	render_map(t_game *game)
 
 	p = &game->player;
 	map = game->map;
+	render_ceiling_and_floor(game);
 	game->x = 0;
 	while (game->x < game->img->width)
 	{

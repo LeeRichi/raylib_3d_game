@@ -50,6 +50,10 @@ typedef struct s_map
 
 	int		map_started_flag;
 	int		map_index;
+
+	int		map_end_flag;
+
+	int		too_many_lines;
 }	t_map;
 
 typedef struct s_player {
@@ -133,9 +137,21 @@ typedef struct s_game
 	// int	w;
 }	t_game;
 
-
+//main
+void skip_spaces(char **map, int *i, int *j);
 //src/parse_map
 void	parse_map(const char *map_path, t_map *map);
+//src/parse_map/parse_map_helper.c
+int		is_empty_line(char *line);
+int		is_map_line(char *line);
+int		texture_and_color_is_complete(t_map *map);
+void	trim_newline(char *line);
+void	too_many_lines_plz_clean(int fd, char **map_lines, t_map *map, char *line);
+//src/parse_map/parse_map_helper2.c
+int one_of_the_dir(char *line);
+void get_lines_helper_helper(t_map *map, char *line, char **map_lines);
+void garbage_free(char *line, int fd, char **map_lines, t_map *map);
+void map_operation(char *line, int fd, char **map_lines, t_map *map);
 //src/parse_map/save_map.c
 void	save_map(t_map *map, char **map_lines);
 //src/parse_map/save_color.c
@@ -152,13 +168,13 @@ void	free_lines_count(char **lines, int count);
 void	print_matrix(char **matrix);
 
 //game_init.c
+void	exit_with_msg(char *msg);
 void	game_init(t_game *game);
 //player_init.c
 void	init_player(t_game *game);
 
 //render/render.c
 void	render_map(t_game *game);
-void	render_mini_map(t_game *game);
 
 //render/render_helper.c
 void	calculate_ray_direction(t_game *game, int w);
@@ -185,7 +201,7 @@ void	is_tab_mode(t_game *game);
 void	render_pause_screen(t_game *game, int show);
 
 //src/render/render_minimap.c
-void render_mini_map(t_game *game);
+// void render_mini_map(t_game *game);
 
 
 

@@ -53,6 +53,8 @@ void	free_lines_count(char **lines, int count)
 {
 	int	i;
 
+	if (!lines)
+        return;
 	for (i = 0; i < count; i++)
 		free(lines[i]);
 }

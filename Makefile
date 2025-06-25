@@ -25,6 +25,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SRCS = src/main.c \
 		src/parse_map/parse_map.c \
+		src/parse_map/parse_map_helper.c \
+		src/parse_map/parse_map_helper_2.c \
 		src/parse_map/save_texture.c \
 		src/parse_map/save_color.c \
 		src/parse_map/save_map.c \

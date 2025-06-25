@@ -54,6 +54,8 @@ typedef struct s_map
 	int		map_end_flag;
 
 	int		too_many_lines;
+
+	int		found_player_flag;
 }	t_map;
 
 typedef struct s_player {
@@ -158,7 +160,14 @@ void	save_map(t_map *map, char **map_lines);
 void	save_color(t_map *map, char *line);
 //src/parse_map/save_texture.c
 void	save_texture(t_map *map, char *line);
+
+//src/map_checker/map_checker.c
 int		map_checker(t_map *map);
+//src/map_checker/map_checker_helper.c
+int	is_dup_player(t_map *map);
+int	is_one_of_the_guy(t_map *map, int i, int j);
+int	has_invalid_char(t_map *map);
+int	invalid_get_out(t_map *map);
 
 //utils.c
 void	malloc_fail_exit(void);

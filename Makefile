@@ -31,6 +31,7 @@ SRCS = src/main.c \
 		src/parse_map/save_color.c \
 		src/parse_map/save_map.c \
 		src/map_checker/map_checker.c \
+		src/map_checker/map_checker_helper.c \
 		src/utils.c \
 		src/clean.c \
 		src/inits/game_init.c \

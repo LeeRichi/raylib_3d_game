@@ -37,7 +37,7 @@ void	free_matrix(char **matrix)
 	free(matrix);
 }
 
-void print_matrix(char **matrix)
+void	print_matrix(char **matrix)
 {
 	int	i;
 
@@ -54,7 +54,11 @@ void	free_lines_count(char **lines, int count)
 	int	i;
 
 	if (!lines)
-        return;
-	for (i = 0; i < count; i++)
+		return ;
+	i = 0;
+	while (i < count)
+	{
 		free(lines[i]);
+		i++;
+	}
 }

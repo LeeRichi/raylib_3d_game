@@ -41,6 +41,7 @@ SRCS = src/main.c \
 		src/render/render_pause.c \
 		src/render/render_minimap.c \
 		src/handler/key_handler.c \
+		src/handler/key_handler_helper.c \
 		src/handler/mouse_handler.c \
 
 OBJS = $(SRCS:.c=.o)

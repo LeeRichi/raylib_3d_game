@@ -12,7 +12,7 @@
 
 #include "../includes/cub3D.h"
 
-void free_map(char **map)
+void	free_map(char **map)
 {
 	int	i;
 
@@ -25,7 +25,7 @@ void free_map(char **map)
 	free(map);
 }
 
-void free_trims(t_map *map)
+void	free_trims(t_map *map)
 {
 	if (map->north_path)
 		free(map->north_path);
@@ -37,11 +37,10 @@ void free_trims(t_map *map)
 		free(map->east_path);
 }
 
-void free_images(t_game *game)
+void	free_images(t_game *game)
 {
 	if (!game || !game->textures)
-		return;
-
+		return ;
 	if (game->textures->n_wall_img)
 		mlx_delete_image(game->mlx, game->textures->n_wall_img);
 	if (game->textures->e_wall_img)
@@ -52,11 +51,10 @@ void free_images(t_game *game)
 		mlx_delete_image(game->mlx, game->textures->w_wall_img);
 }
 
-void free_textures(t_game *game)
+void	free_textures(t_game *game)
 {
 	if (!game || !game->textures)
-		return;
-
+		return ;
 	if (game->textures->n_wall_texture)
 		mlx_delete_texture(game->textures->n_wall_texture);
 	if (game->textures->e_wall_texture)
@@ -65,7 +63,6 @@ void free_textures(t_game *game)
 		mlx_delete_texture(game->textures->s_wall_texture);
 	if (game->textures->w_wall_texture)
 		mlx_delete_texture(game->textures->w_wall_texture);
-
 	free(game->textures);
 	game->textures = NULL;
 }

@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -13,50 +12,53 @@
 
 #include "../../includes/cub3D.h"
 
-void init_player(t_game *game)
+void	position_ns(t_game *game, double dir_y, double plane_x)
 {
-	t_map *map = game->map;
-	int i = 0, j = 0;
+	game->player.dir_x = 0;
+	game->player.dir_y = dir_y;
+	game->player.plane_x = plane_x;
+	game->player.plane_y = 0;
+}
 
-	while (map->map[i])
+void	position_ew(t_game *game, double dir_x, double plane_y)
+{
+	game->player.dir_x = dir_x;
+	game->player.dir_y = 0;
+	game->player.plane_x = 0;
+	game->player.plane_y = plane_y;
+}
+
+void	set_pos(char c, t_game *game)
+{
+	if (c == 'N')
+		position_ns(game, -1, 0.66);
+	else if (c == 'S')
+		position_ns(game, 1, -0.66);
+	else if (c == 'E')
+		position_ew(game, 1, 0.66);
+	else if (c == 'W')
+		position_ew(game, -1, -0.66);
+}
+
+void	init_player(t_game *game)
+{
+	int		i;
+	int		j;
+	char	c;
+
+	i = 0;
+	j = 0;
+	while (game->map->map[i])
 	{
 		j = 0;
-		while (map->map[i][j])
+		while (game->map->map[i][j])
 		{
-			char c = map->map[i][j];
+			c = game->map->map[i][j];
 			if (c == 'N' || c == 'S' || c == 'E' || c == 'W')
 			{
 				game->player.x = j + 0.5;
 				game->player.y = i + 0.5;
-
-				if (c == 'N')
-				{
-					game->player.dir_x = 0;
-					game->player.dir_y = -1;
-					game->player.plane_x = 0.66;
-					game->player.plane_y = 0;
-				}
-				else if (c == 'S')
-				{
-					game->player.dir_x = 0;
-					game->player.dir_y = 1;
-					game->player.plane_x = -0.66;
-					game->player.plane_y = 0;
-				}
-				else if (c == 'E')
-				{
-					game->player.dir_x = 1;
-					game->player.dir_y = 0;
-					game->player.plane_x = 0;
-					game->player.plane_y = 0.66;
-				}
-				else if (c == 'W')
-				{
-					game->player.dir_x = -1;
-					game->player.dir_y = 0;
-					game->player.plane_x = 0;
-					game->player.plane_y = -0.66;
-				}
+				set_pos(c, game);
 				return ;
 			}
 			j++;

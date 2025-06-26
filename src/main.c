@@ -12,7 +12,7 @@
 
 #include "../includes/cub3D.h"
 
-void skip_spaces(char **map, int *i, int *j)
+void	skip_spaces(char **map, int *i, int *j)
 {
 	while (map[*i][*j] == ' ' || map[*i][*j] == '\t'
 		|| map[*i][*j] == '\r'
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 {
 	t_game	game;
 	t_map	map;
-	
+
 	ft_bzero(&game, sizeof(t_game));
 	ft_bzero(&map, sizeof(t_map));
 	arg_checker(ac, av);

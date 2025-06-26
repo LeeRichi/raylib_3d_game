@@ -24,6 +24,7 @@ void	local_exit_clean_with_msg(char *msg, t_game *game)
 	mlx_terminate(game->mlx);
 	free_map(game->map->map);
 	free_trims(game->map);
+	free_images(game);
 	exit_with_msg(msg);
 }
 
@@ -33,20 +34,20 @@ void	load_textures(t_game *game)
 	game->textures->e_wall_texture = mlx_load_png(game->map->east_path);
 	game->textures->s_wall_texture = mlx_load_png(game->map->south_path);
 	game->textures->w_wall_texture = mlx_load_png(game->map->west_path);
-	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture ||
-		!game->textures->s_wall_texture || !game->textures->w_wall_texture)
+	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture
+		|| !game->textures->s_wall_texture || !game->textures->w_wall_texture)
 		local_exit_clean_with_msg("Error: mlx_load_png failed\n", game);
-	game->textures->n_wall_img = mlx_texture_to_image(game->mlx, game->textures->n_wall_texture);
-	game->textures->e_wall_img = mlx_texture_to_image(game->mlx, game->textures->e_wall_texture);
-	game->textures->s_wall_img = mlx_texture_to_image(game->mlx, game->textures->s_wall_texture);
-	game->textures->w_wall_img = mlx_texture_to_image(game->mlx, game->textures->w_wall_texture);
-
-	if (!game->textures->n_wall_img || !game->textures->e_wall_img ||
-		!game->textures->s_wall_img || !game->textures->w_wall_img)
-	{
-		free_images(game);
+	game->textures->n_wall_img = mlx_texture_to_image(game->mlx,
+			game->textures->n_wall_texture);
+	game->textures->e_wall_img = mlx_texture_to_image(game->mlx,
+			game->textures->e_wall_texture);
+	game->textures->s_wall_img = mlx_texture_to_image(game->mlx,
+			game->textures->s_wall_texture);
+	game->textures->w_wall_img = mlx_texture_to_image(game->mlx,
+			game->textures->w_wall_texture);
+	if (!game->textures->n_wall_img || !game->textures->e_wall_img
+		|| !game->textures->s_wall_img || !game->textures->w_wall_img)
 		local_exit_clean_with_msg("Error: mlx_texture_to_image failed\n", game);
-	}
 }
 
 void	game_init(t_game *game)

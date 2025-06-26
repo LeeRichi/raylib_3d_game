@@ -1,3 +1,0 @@
-Warning: Unknown line: DO ./textures/pics/eagle.png
-
-Error: mlx_load_png failed

@@ -39,8 +39,10 @@ typedef struct s_map
 	char	*south_path;
 	char	*west_path;
 	char	*east_path;
-	int		floor_color;
-	int		ceiling_color;
+	// int		floor_color;
+	// int		ceiling_color;
+	uint32_t		floor_color;
+	uint32_t		ceiling_color;
 	char	**map;
 	int		map_line_count;
 	int		coloum_count;

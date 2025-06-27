@@ -37,7 +37,7 @@ int	is_surroundings_valid(t_map *map)
 	return (1);
 }
 
-int	is_valid_color(int color)
+int	is_valid_color(uint32_t color)
 {
 	if (color < 0 || color > 0xFFFFFF)
 	{
@@ -55,8 +55,8 @@ static int	error_print_return(char *msg)
 
 int	map_checker(t_map *map)
 {
-	if (!is_valid_color(map->floor_color))
-		return (error_print_return("Error\nInvalid floor color.\n"));
+	// if (!is_valid_color(map->floor_color) && !is_valid_color(map->ceiling_color))
+	// 	return (error_print_return("Error\nInvalid floor color.\n"));
 	if (map->floor_color == map->ceiling_color)
 		return (error_print_return("Error\nSame color for f and c.\n"));
 	if (is_dup_player(map))

@@ -46,6 +46,7 @@ static int	is_rgb_valid(char **rgb)
 	return (i == 3);
 }
 
+////ABGR
 static void	translate_color(t_map *map, char *line, char *which)
 {
 	char	**rgb;
@@ -54,17 +55,24 @@ static void	translate_color(t_map *map, char *line, char *which)
 	trim = ft_strtrim(line + 1, " \t\n");
 	rgb = ft_split(trim, ',');
 	free(trim);
-	if (!rgb[0] || !rgb[1] || !rgb[2] || rgb[3] || !is_rgb_valid(rgb))
+	printf("0: %s	1: %s	2: %s	3: %s\n", rgb[0],rgb[1],rgb[2],rgb[3]);
+	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_rgb_valid(rgb))
 	{
 		free_matrix(rgb);
 		error_exit("Invalid color format");
 	}
 	if (ft_strcmp(which, "F") == 0)
-		map->floor_color = (ft_atoi(rgb[0]) << 16)
+	{
+		map->floor_color = (255 << 24 | ft_atoi(rgb[0]) << 16)
 			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+			printf("floor color: %i	in uint32: %u\n", map->floor_color, (uint32_t) map->floor_color);
+	}
 	else if (ft_strcmp(which, "C") == 0)
-		map->ceiling_color = (ft_atoi(rgb[0]) << 16)
+	{
+		map->ceiling_color = (255 << 24 | ft_atoi(rgb[0]) << 16)
 			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+			printf("ceiling color: %i	in uint32: %u\n", map->ceiling_color, (uint32_t) map->ceiling_color);
+	}
 	free_matrix(rgb);
 }
 

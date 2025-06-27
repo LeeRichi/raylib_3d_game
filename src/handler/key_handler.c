@@ -48,9 +48,9 @@ void	handle_input_helper(t_game *game)
 
 void	key_right_left(t_game *game)
 {
-	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
-		rotate_player(&game->player, -(game->ms));
 	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		rotate_player(&game->player, -(game->ms));
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
 		rotate_player(&game->player, game->ms);
 }
 

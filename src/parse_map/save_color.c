@@ -68,11 +68,21 @@ static void	translate_color(t_map *map, char *line, char *which)
 	free_matrix(rgb);
 }
 
-void	save_color(t_map *map, char *line)
+void	save_color(t_map *map, char *line, int fd)
 {
 	if (ft_strncmp(line, "F ", 2) == 0)
-		translate_color(map, line, "F");
+	{
+		if (!map->floor_color)
+			translate_color(map, line, "F");
+		else
+			dup_key_clean_up(fd, map, line);
+	}
 	else if (ft_strncmp(line, "C ", 2) == 0)
-		translate_color(map, line, "C");
+	{
+		if (!map->ceiling_color)
+			translate_color(map, line, "C");
+		else
+			dup_key_clean_up(fd, map, line);
+	}
 	free(line);
 }

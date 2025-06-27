@@ -39,6 +39,7 @@ void	garbage_free(char *line, int fd, char **map_lines, t_map *map)
 
 void	map_operation(char *line, int fd, char **map_lines, t_map *map)
 {
+	map->map_started_flag = 1;
 	if (ft_strlen(line) >= MAX_LINES)
 	{
 		free(line);

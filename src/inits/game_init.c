@@ -52,8 +52,8 @@ void	load_textures(t_game *game)
 
 void	game_init(t_game *game)
 {
-	game->map->ceiling_color = 0x000000FF; //todo
-	game->map->floor_color = 0xD3D3D3D3; ///todo
+	// game->map->ceiling_color = 0x000000FF; //todo
+	// game->map->floor_color = 0xD3D3D3D3; ///todo
 	printf("before mlx_init\n");
 	game->mlx = mlx_init(1920, 1080, "cub3D", true); //invalid read
 	printf("after mlx_init\n");

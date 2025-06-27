@@ -125,6 +125,7 @@ typedef struct s_game
 void	skip_spaces(char **map, int *i, int *j);
 //src/parse_map
 void	parse_map(const char *map_path, t_map *map);
+void	missing_texture_exit(int fd, t_map *map, char **map_lines);
 //src/parse_map/parse_map_helper.c
 int		is_empty_line(char *line);
 int		is_map_line(char *line);
@@ -140,9 +141,10 @@ void	map_operation(char *line, int fd, char **map_lines, t_map *map);
 //src/parse_map/save_map.c
 void	save_map(t_map *map, char **map_lines);
 //src/parse_map/save_color.c
-void	save_color(t_map *map, char *line);
+void	save_color(t_map *map, char *line, int fd);
 //src/parse_map/save_texture.c
-void	save_texture(t_map *map, char *line);
+void	dup_key_clean_up(int fd, t_map *map, char *line);
+void	save_texture(t_map *map, char *line, int fd, char **map_lines);
 //src/map_checker/map_checker.c
 int		map_checker(t_map *map);
 //src/map_checker/map_checker_helper.c

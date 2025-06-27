@@ -93,6 +93,7 @@ void	render_ceiling_and_floor(t_game *game)
 		else
 			color = game->map->floor_color;
 		x = 0;
+		// printf("test: %u\n", color);
 		while (x < (int)game->img->width)
 		{
 			pixels[y * (int)game->img->width + x] = color;

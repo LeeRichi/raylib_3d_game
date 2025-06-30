@@ -49,6 +49,10 @@ int	main(int ac, char **av)
 	init_player(&game);
 	mlx_set_setting(MLX_STRETCH_IMAGE, 1);
 	mlx_set_cursor_mode(game.mlx, MLX_MOUSE_DISABLED);
+
+	//temp
+	mlx_key_hook(game.mlx, handle_keypress, &game);
+	
 	mlx_loop_hook(game.mlx, handle_input, &game);
 	mlx_cursor_hook(game.mlx, handle_mouse_move, &game);
 	mlx_loop(game.mlx);

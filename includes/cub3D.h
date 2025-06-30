@@ -172,6 +172,7 @@ void	calculate_ray_direction(t_game *game, int w);
 void	setup_dda(t_game *game, t_player *p);
 void	perform_dda(t_game *game, t_map *map);
 //src/handler/key_handler.c
+void	handle_keypress(mlx_key_data_t keydata, void *param);
 void	handle_input(void *param);
 //src/handler/key_handler_helper.c
 void	clear_image_by_put_pixel(mlx_image_t *img);

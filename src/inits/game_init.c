@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:44:15 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/26 17:54:43 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/27 20:21:20 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ void	load_textures(t_game *game)
 
 void	game_init(t_game *game)
 {
-	// game->map->ceiling_color = 0xdc6400; //todo
-	// game->map->floor_color = 0xD3D3D3D3; ///todo
 	printf("before mlx_init\n");
 	game->mlx = mlx_init(1920, 1080, "cub3D", true); //invalid read
 	printf("after mlx_init\n");

@@ -1,0 +1,17 @@
+NO ./assets/textures/others_0026_color_2k.png
+EA ./assets/textures/bricks_0001_color_2k.png
+WE ./assets/textures/bricks_0001_color_2k_2.png
+SO ./assets/textures/others_0027_color_2k.png
+
+C 0,0,50
+F 188,99,27
+
+1111111111
+1100000001
+1001010001
+1001000001111
+1000000000001
+1011111111101
+1011101110001
+1N00000000001
+1111111111111

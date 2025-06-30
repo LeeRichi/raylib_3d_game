@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   save_color.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:50:51 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/13 11:51:47 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/27 21:58:29 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ static void	translate_color(t_map *map, char *line, char *which)
 	}
 	if (ft_strcmp(which, "F") == 0)
 	{
-		map->floor_color = (255 << 24 | ft_atoi(rgb[0]) << 16)
-			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+		map->floor_color = (255 << 24 | ft_atoi(rgb[2]) << 16)
+			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[0]);
 			printf("floor color: %i	in uint32: %u\n", map->floor_color, (uint32_t) map->floor_color);
 	}
 	else if (ft_strcmp(which, "C") == 0)
 	{
-		map->ceiling_color = (255 << 24 | ft_atoi(rgb[0]) << 16)
-			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[2]);
+		map->ceiling_color = (255 << 24 | ft_atoi(rgb[2]) << 16)
+			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[0]);
 			printf("ceiling color: %i	in uint32: %u\n", map->ceiling_color, (uint32_t) map->ceiling_color);
 	}
 	free_matrix(rgb);

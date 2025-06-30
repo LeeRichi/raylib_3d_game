@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 16:50:14 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/06/27 22:14:31 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ void	draw_each_col(t_game *game)
 void	render_ceiling_and_floor(t_game *game)
 {
 	uint32_t	*pixels;
+	uint32_t	color;
 	int			y;
 	int			x;
-	uint32_t	color;
 
 	pixels = (uint32_t *)game->img->pixels;
 	y = 0;

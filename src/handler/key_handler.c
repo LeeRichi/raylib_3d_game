@@ -54,6 +54,16 @@ void	key_right_left(t_game *game)
 		rotate_player(&game->player, game->ms);
 }
 
+void handle_keypress(mlx_key_data_t keydata, void *param)
+{
+	t_game *game = (t_game *)param;
+
+	if (keydata.key == MLX_KEY_TAB)
+	{
+		is_tab_mode(game);
+	}
+}
+
 void	handle_input(void *param)
 {
 	t_game		*game;
@@ -63,7 +73,7 @@ void	handle_input(void *param)
 	p = &game->player;
 	game->ms = 0.05;
 	game->db = 0.08;
-	handle_input_helper(game);
+	// handle_input_helper(game);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
 		try_move_player(game, p, p->dir_x, p->dir_y);
 	if (mlx_is_key_down(game->mlx, MLX_KEY_S))

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:50:51 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/27 21:58:29 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/01 23:14:13 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,20 @@ static void	translate_color(t_map *map, char *line, char *which)
 	trim = ft_strtrim(line + 1, " \t\n");
 	rgb = ft_split(trim, ',');
 	free(trim);
-	printf("0: %s	1: %s	2: %s	3: %s\n", rgb[0],rgb[1],rgb[2],rgb[3]);
+	//printf("0: %s	1: %s	2: %s	3: %s\n", rgb[0],rgb[1],rgb[2],rgb[3]);
 	if (!rgb[0] || !rgb[1] || !rgb[2] || !is_rgb_valid(rgb))
 	{
 		free_matrix(rgb);
 		error_exit("Invalid color format");
 	}
 	if (ft_strcmp(which, "F") == 0)
-	{
 		map->floor_color = (255 << 24 | ft_atoi(rgb[2]) << 16)
 			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[0]);
-			printf("floor color: %i	in uint32: %u\n", map->floor_color, (uint32_t) map->floor_color);
-	}
+			//printf("floor color: %i	in uint32: %u\n", map->floor_color, (uint32_t) map->floor_color);
 	else if (ft_strcmp(which, "C") == 0)
-	{
 		map->ceiling_color = (255 << 24 | ft_atoi(rgb[2]) << 16)
 			| (ft_atoi(rgb[1]) << 8) | ft_atoi(rgb[0]);
-			printf("ceiling color: %i	in uint32: %u\n", map->ceiling_color, (uint32_t) map->ceiling_color);
-	}
+			//printf("ceiling color: %i	in uint32: %u\n", map->ceiling_color, (uint32_t) map->ceiling_color);
 	free_matrix(rgb);
 }
 

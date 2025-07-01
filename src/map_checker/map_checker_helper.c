@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_checker.c                                      :+:      :+:    :+:   */
+/*   map_checker_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/18 16:02:56 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/01 22:03:33 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	is_dup_player(t_map *map)
 			skip_spaces(map->map, &i, &j);
 			if (map->map[i][j] == '\0')
 				break ;
-			if (map->map[i][j] == 'N')
+			if (ft_strchr("NEWS", map->map[i][j]))//changed this line to check dupication for all players.
 			{
 				if (map->found_player_flag == 1)
 					return (1);
@@ -37,7 +37,7 @@ int	is_dup_player(t_map *map)
 		}
 		i++;
 	}
-	return (0);
+	return (!map->found_player_flag);//this will return 0 if the player is found. if none found 1. There was no room for two lines to add if condition followed by return.
 }
 
 int	is_one_of_the_guy(t_map *map, int i, int j)

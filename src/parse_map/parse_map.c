@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/15 14:31:23 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/01 18:39:27 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,6 @@ void	parse_map(const char *map_path, t_map *map)
 	char	*map_lines[MAX_LINES];
 
 	line = NULL;
-	// map->map_started_flag = 0;
-	// map->map_index = 0;
-	// map->map_end_flag = 0;
-	// map->too_many_lines = 0;
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
 		return (perror("open"), exit(EXIT_FAILURE));

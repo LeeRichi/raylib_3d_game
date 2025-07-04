@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 00:38:08 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/18 16:02:56 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/01 22:01:11 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,9 @@ int	map_checker(t_map *map)
 	// if (!is_valid_color(map->floor_color) && !is_valid_color(map->ceiling_color))
 	// 	return (error_print_return("Error\nInvalid floor color.\n"));
 	if (map->floor_color == map->ceiling_color)
-		return (error_print_return("Error\nSame color for f and c.\n"));
+		return (error_print_return("Error\nSame color for floor and ceiling.\n"));
 	if (is_dup_player(map))
-		return (error_print_return("Error\nMore than one N in the map.\n"));
+		return (error_print_return("Error\nMore than one or none player start positions found in the map.\n"));
 	if (has_invalid_char(map))
 		return (error_print_return("Error\nInvalid character in map.\n"));
 	if (!is_surroundings_valid(map))

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/04 19:13:56 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/04 23:50:19 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void	render_map(t_game *game)
 		compute_wall_projection(game);
 		texture_mapping(game, p);
 		draw_each_col(game);
-		render_mini_map(game, game->map);
+		//render_mini_map(game, map);
 		game->x++;
 	}
 }

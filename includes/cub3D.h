@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/01 19:00:46 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/05 11:47:07 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct s_game
 }	t_game;
 
 //main
-void	skip_spaces(char **map, int *i, int *j);
+void skip_spaces(char **map, int *i, int *j);
 //src/parse_map
 void	parse_map(const char *map_path, t_map *map);
 void	missing_texture_exit(int fd, t_map *map, char **map_lines);

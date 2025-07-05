@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/01 18:39:27 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/05 11:17:46 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@ void	get_lines_helper(char *line, int fd, t_map *map, char **map_lines)
 	line = get_next_line(fd);
 	while (line)
 	{
-		if (is_empty_line(line))
-			free(line);
-		else if (is_empty_line(line) && map->map_started_flag)
+		if (is_empty_line(line) && map->map_started_flag)
 		{
 			if (map->map_started_flag)
 				map->map_end_flag = 1;
 			free(line);
 		}
+		else if (is_empty_line(line))
+			free(line);
 		else if (one_of_the_dir(line) && !map->map_started_flag)
 			save_texture(map, line, fd, map_lines);
 		else if ((line[0] == 'F' || line[0] == 'C') && !map->map_started_flag)
@@ -64,5 +64,8 @@ void	parse_map(const char *map_path, t_map *map)
 		missing_texture_exit(fd, map, map_lines);
 	map_lines[map->map_index] = NULL;
 	save_map(map, map_lines);
+
+	//temp
+	print_matrix(map->map);
 	close(fd);
 }

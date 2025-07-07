@@ -12,50 +12,72 @@
 
 #include "../../includes/cub3D.h"
 
+//because of norm
+void	assign_values_for_get_player_pos(int i, int j, t_point *ps)
+{
+	(*ps).x = j;
+	(*ps).y = i;
+}
+
+// if (map->found_player_flag == 0)
+// 	return (player_pos); at this point we dont need it because we are for sure there's only/exactly one player 
 t_point get_player_pos(t_map *map)
 {
 	t_point	player_pos;
+	int		i;
+	int		j;
 
 	player_pos.x = -1;
 	player_pos.y = -1;
-	if (map->found_player_flag == 0)
-		return (player_pos);
-	for (int i = 0; map->map[i]; i++)
+	i = 0;
+	while (map->map[i])
 	{
-		for (int j = 0; map->map[i][j]; j++)
+		j = 0;
+		while (map->map[i][j])
 		{
 			skip_spaces(map->map, &i, &j);
 			if (map->map[i][j] == '\0')
-    			continue;
+				break;
 			if (ft_strchr("NEWS", map->map[i][j]))
 			{
-				player_pos.x = j;
-				player_pos.y = i;
+				assign_values_for_get_player_pos(i, j, &player_pos);
 				return (player_pos);
 			}
+			j++;
 		}
+		i++;
 	}
 	return (player_pos);
 }
 
+//leak for flood fill, not memory
 int	check_leak(char **map, t_point sz)
 {
-	for (int x = 0; x < sz.x; x++)
+	int x;
+	int y;
+
+	x = 0;
+	while (x < sz.x)
 	{
 		if (map[0][x] == 'F' || map[sz.y - 1][x] == 'F')
-			return (1);
+		return 1;
+		x++;
 	}
-	for (int y = 0; y < sz.y; y++)
+	y = 0;
+	while (y < sz.y)
 	{
 		if (map[y][0] == 'F' || map[y][sz.x - 1] == 'F')
-			return (1);
+			return 1;
+		y++;
 	}
-	return (0);
+	return 0;
 }
+
 
 int	copy_map_line(t_map *map, char **temp)
 {
-	int i, j;
+	int i;
+	int	j;
 
 	if (!map || !temp)
 		return (1);
@@ -147,8 +169,6 @@ static int	error_print_return(char *msg)
 
 int	map_checker(t_map *map)
 {
-	// if (!is_valid_color(map->floor_color) && !is_valid_color(map->ceiling_color))
-	// 	return (error_print_return("Error\nInvalid floor color.\n"));
 	if (map->floor_color == map->ceiling_color)
 		return (error_print_return("Error\nSame color for floor and ceiling.\n"));
 	if (is_dup_player(map))

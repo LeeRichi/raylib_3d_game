@@ -64,8 +64,5 @@ void	parse_map(const char *map_path, t_map *map)
 		missing_texture_exit(fd, map, map_lines);
 	map_lines[map->map_index] = NULL;
 	save_map(map, map_lines);
-
-	//temp
-	print_matrix(map->map);
 	close(fd);
 }

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/04 23:38:47 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/07 21:58:05 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_map
 	char	**map;
 	int		map_line_count;
 	int		coloum_count;
-	int		player_pos_x;
-	int		player_pos_y;
+	//int		player_pos_x;
+	//int		player_pos_y;
 	int		map_started_flag;
 	int		map_index;
 	int		map_end_flag;
@@ -190,5 +190,5 @@ void	is_tab_mode(t_game *game);
 void	render_pause_screen(t_game *game, int show);
 
 
-void render_mini_map(t_game *game, t_map *map);
+void render_minimap(t_game *game, t_map *map, int x, int y);
 #endif

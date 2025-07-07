@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/04 23:48:52 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/07 21:24:46 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,25 +83,29 @@
 // 	}
 // }
 
-static void	draw_sq_block(t_game *game, int i, int j, uint32_t color)
+static void	draw_sq_block(t_game *game, int x, int y, uint32_t clr)
 {
-	int	x;
-	int	y;
-	int	block_size;
+	int	blk_x;
+	int	blk_y;
+	int	blk_size;
 	uint32_t	*pixels;
+	uint32_t	blk_stpos;
 	
+	printf("inside draw block\n");
 	pixels = (uint32_t *)game->img->pixels;
-	block_size = 16;
-	y = 1;
-	while (y < block_size)
+	blk_size = 16;
+	blk_y = 1;
+	blk_stpos = ((game->img->height - y * blk_size) * (int)game->img->width) + (x * blk_size);
+	while (blk_y < blk_size)
 	{
-		x = 1;
-		while (x < block_size)
+		blk_x = 1;
+		while (blk_x < blk_size)
 		{
-			pixels[y * (int)game->img->width + x] = color;
-			x++;
+			pixels[blk_stpos + blk_x] = clr;
+			blk_x++;
 		}
-		y++;
+		blk_stpos += (int)game->img->width;
+		blk_y++;
 	}
 }
 
@@ -124,7 +128,7 @@ static uint32_t	set_block_color(t_map *map_data, int i, int j, int rad)
 		return (0x03B1FCFF);
 }
 
-void render_mini_map(t_game *game, t_map *map)
+void render_minimap(t_game *game, t_map *map, int x, int y)
 {
 	int			i;
 	int			j;
@@ -134,14 +138,20 @@ void render_mini_map(t_game *game, t_map *map)
 	rad = 7;
 	i = map->player_pos_x - rad - 1;
 	j = map->player_pos_y - rad - 1;
-	while (i <= map->player_pos_x + rad)
+	while (j <= map->player_pos_y + rad)
 	{
-		while (j <= map->player_pos_y + rad)
+		while (i <= map->player_pos_x + rad)
 		{
 			color = set_block_color(map, i, j, rad);
-			draw_sq_block(game, i, j, color);
+			draw_sq_block(game, x, y, color);
 			j++;
+			x++;
+			if ((uint32_t)x > game->img->width)
+				break;
 		}
 		i++;
+		y--;
+		if (y < 0)
+			break;
 	}
 }

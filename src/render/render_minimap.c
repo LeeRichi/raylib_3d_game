@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/07 21:24:46 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/07 23:27:08 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ static uint32_t	set_block_color(t_map *map_data, int i, int j, int rad)
 		return (0x03B1FCFF);
 }
 
-void render_minimap(t_game *game, t_map *map, int x, int y)
+void render_minimap(t_game *game, t_player	*p, int x, int y)
 {
 	int			i;
 	int			j;
@@ -136,13 +136,13 @@ void render_minimap(t_game *game, t_map *map, int x, int y)
 	uint32_t	color;
 	
 	rad = 7;
-	i = map->player_pos_x - rad - 1;
-	j = map->player_pos_y - rad - 1;
-	while (j <= map->player_pos_y + rad)
+	i = floor(p->x) - rad - 1;
+	j = floor(p->y) - rad - 1;
+	while (j <= floor(p->y) + rad)
 	{
-		while (i <= map->player_pos_x + rad)
+		while (i <= floor(p->x) + rad)
 		{
-			color = set_block_color(map, i, j, rad);
+			color = set_block_color(game -> map, i, j, rad);
 			draw_sq_block(game, x, y, color);
 			j++;
 			x++;

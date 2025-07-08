@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/07 23:27:08 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/08 22:46:22 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ static void	draw_sq_block(t_game *game, int x, int y, uint32_t clr)
 	uint32_t	*pixels;
 	uint32_t	blk_stpos;
 	
-	printf("inside draw block\n");
+	// printf("inside draw block\n");
 	pixels = (uint32_t *)game->img->pixels;
 	blk_size = 16;
 	blk_y = 1;
@@ -107,25 +107,31 @@ static void	draw_sq_block(t_game *game, int x, int y, uint32_t clr)
 		blk_stpos += (int)game->img->width;
 		blk_y++;
 	}
+	
 }
 
-static uint32_t	set_block_color(t_map *map_data, int i, int j, int rad)
+static uint32_t	set_block_color(t_game *game, int i, int j, int rad)
 {
 	char **map;
+	t_player	*p;
+	(void) rad;
 
-	map = map_data-> map;
-	if (i < 0 || j < 0 || i > map_data->player_pos_x + rad 
-		|| j > map_data->player_pos_y + rad)
-		return (0x03B1FCFF); //#fcb103
-	if (map[i][j] == '1')
-		return (0xFFFFFF00);
-	else if (map[i][j] == 'N' || map[i][j] == 'S' || map[i][j] == 'E'
-		|| map[i][j] == 'W')
-		return (0x2C03FCFF);//#fc032c
-	else if (map[i][j] == '0')
+	map = game -> map-> map;
+	p = &game -> player;
+	if (i < 0 || j < 0 || i >= game->map->coloum_count //i >= (floor(p->x) + rad) 
+		|| j >= game->map->map_line_count) //j >= (floor(p->y) + rad))//changed > to >=
+	{
+		//printf("index out of boounds in map.\n");
+		return (0xFFB5BEB2); //#fcb103
+	}
+	else if (map[j][i] == '1')
+		return (0xFF000000);
+	else if (i == (int) floor(p->x) && j == (int) floor(p->y))//(map[j][i] == 'N' || map[j][i] == 'S' || map[j][i] == 'E' || map[j][i] == 'W')
+		return (0xFF0000FF);//#fc032c
+	else if (map[j][i] == '0' || map[j][i] == 'N' || map[j][i] == 'S' || map[j][i] == 'E' || map[j][i] == 'W')
 		return (0xFFFFFFFF);
 	else
-		return (0x03B1FCFF);
+		return (0xFFB5BEB2);
 }
 
 void render_minimap(t_game *game, t_player	*p, int x, int y)
@@ -136,22 +142,28 @@ void render_minimap(t_game *game, t_player	*p, int x, int y)
 	uint32_t	color;
 	
 	rad = 7;
-	i = floor(p->x) - rad - 1;
-	j = floor(p->y) - rad - 1;
-	while (j <= floor(p->y) + rad)
+	i = (int) floor(p->x) - rad - 1;
+	j = (int) floor(p->y) - rad - 1;
+	
+	while (j < (int) floor(p->y) + rad)
 	{
-		while (i <= floor(p->x) + rad)
+		i = (int) floor(p->x) - rad - 1;
+		x = 0; 
+		while (i < (int) floor(p->x) + rad)
 		{
-			color = set_block_color(game -> map, i, j, rad);
+			// printf("x: %i	y: %i	i: %i	j: %i\n", x, y, i, j);
+			// printf("x_lower_limit: %i	y_lower_limit: %i\n", (int) floor(p->x) - rad - 1, (int) floor(p->y) - rad - 1);
+			// printf("x_upper_limit: %i	y_upper_limit: %i\n", (int) floor(p->x) + rad, (int) floor(p->y) + rad);
+			color = set_block_color(game, i, j, rad);
 			draw_sq_block(game, x, y, color);
-			j++;
+			i++;
 			x++;
-			if ((uint32_t)x > game->img->width)
-				break;
+			//if ((uint32_t)x > game->img->width)
+				//break;
 		}
-		i++;
+		j++;
 		y--;
-		if (y < 0)
-			break;
+		//if (y < 0)
+			//break;
 	}
 }

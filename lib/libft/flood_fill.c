@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 18:21:19 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/15 15:05:59 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/05 12:03:16 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,19 @@ void	flood_fill_helper(t_point *new, t_point begin, char c, int is_plus)
 	}
 }
 
+//temp
+void print_size(t_point size)
+{
+	printf("Size: %d x %d\n", size.x, size.y);
+}
+
 void	flood_fill(char **tab, t_point size, t_point begin)
 {
 	char	c;
 	t_point	new;
+
+	// temp
+	print_size(size);
 
 	c = tab[begin.y][begin.x];
 	tab[begin.y][begin.x] = 'F';

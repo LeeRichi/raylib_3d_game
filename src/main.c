@@ -6,7 +6,7 @@
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:10:14 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 17:01:37 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/05 11:53:13 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	skip_spaces(char **map, int *i, int *j)
 {
-	while (map[*i][*j] == ' ' || map[*i][*j] == '\t'
+	while (map[*i][*j] && (map[*i][*j] == ' ' || map[*i][*j] == '\t'
 		|| map[*i][*j] == '\r'
-		|| map[*i][*j] == '\v' || map[*i][*j] == '\f')
+		|| map[*i][*j] == '\v' || map[*i][*j] == '\f'))
 		(*j)++;
 }
 
@@ -52,7 +52,7 @@ int	main(int ac, char **av)
 
 	//temp
 	mlx_key_hook(game.mlx, handle_keypress, &game);
-	
+
 	mlx_loop_hook(game.mlx, handle_input, &game);
 	mlx_cursor_hook(game.mlx, handle_mouse_move, &game);
 	mlx_loop(game.mlx);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_map.c                                        :+:      :+:    :+:   */
+/*   parse_map_helper.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/05/15 14:31:23 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/05 10:37:06 by chlee2           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,22 @@
 
 int	is_empty_line(char *line)
 {
-	while (*line)
-	{
-		if (*line != ' ' && *line != '\t' && *line != '\n')
-			return (0);
-		line++;
-	}
-	return (1);
+	
+	if (*line == '\n')
+		return (1);
+	return (0);
 }
+
+// int	is_empty_line(char *line)
+// {
+// 	while (*line)
+// 	{
+// 		if (*line != ' ' && *line != '\t' && *line != '\n')
+// 			return (0);
+// 		line++;
+// 	}
+// 	return (1);
+// }
 
 int	is_map_line(char *line)
 {
@@ -52,9 +60,8 @@ void	trim_newline(char *line)
 }
 
 void	too_many_lines_plz_clean(int fd, char **map_lines,
-	t_map *map, char *line)
+	t_map *map)
 {
-	(void)line;
 	printf("Error: Too many lines in map\n");
 	free_trims(map);
 	close(fd);

@@ -27,7 +27,7 @@ int	is_dup_player(t_map *map)
 			skip_spaces(map->map, &i, &j);
 			if (map->map[i][j] == '\0')
 				break ;
-			if (ft_strchr("NEWS", map->map[i][j]))//changed this line to check dupication for all players.
+			if (ft_strchr("NEWS", map->map[i][j]))
 			{
 				if (map->found_player_flag == 1)
 					return (1);
@@ -37,7 +37,7 @@ int	is_dup_player(t_map *map)
 		}
 		i++;
 	}
-	return (!map->found_player_flag);//this will return 0 if the player is found. if none found 1. There was no room for two lines to add if condition followed by return.
+	return (!map->found_player_flag);
 }
 
 int	is_one_of_the_guy(t_map *map, int i, int j)

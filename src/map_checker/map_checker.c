@@ -153,7 +153,7 @@ int	is_surroundings_valid(t_map *map)
 
 int	is_valid_color(uint32_t color)
 {
-	if (color < 0 || color > 0xFFFFFF)
+	if (color > 0xFFFFFF) //(color < 0 || color > 0xFFFFFF)
 	{
 		printf("Error\nInvalid color value.\n");
 		return (0);

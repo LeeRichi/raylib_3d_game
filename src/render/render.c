@@ -45,8 +45,8 @@ void	texture_mapping(t_game *game, t_player *p)
 		game->wall_x = p->x + game->perp_wall_dist * game->ray_dir_x;
 	game->wall_x -= floor(game->wall_x);
 	game->tex_x = (int)(game->wall_x * (double)(game->tex->width));
-	if (game->tex_x < 0)
-		game->tex_x = 0;
+	// if (game->tex_x < 0)
+	// 	game->tex_x = 0;
 	if (game->tex_x >= game->tex->width)
 		game->tex_x = game->tex->width - 1;
 	if ((game->side == 0 && game->ray_dir_x > 0)

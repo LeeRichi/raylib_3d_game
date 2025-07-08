@@ -46,8 +46,8 @@ typedef struct s_map
 	char	**map;
 	int		map_line_count;
 	int		coloum_count;
-	int		player_pos_x;
-	int		player_pos_y;
+	//int		player_pos_x;
+	//int		player_pos_y;
 	int		map_started_flag;
 	int		map_index;
 	int		map_end_flag;
@@ -189,4 +189,6 @@ void	is_tab_mode(t_game *game);
 //src/render/render_pausre.c
 void	render_pause_screen(t_game *game, int show);
 
+
+void render_minimap(t_game *game, t_player	*p, int x, int y);
 #endif

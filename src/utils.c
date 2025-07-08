@@ -18,10 +18,10 @@ void	malloc_fail_exit(void)
 	exit(EXIT_FAILURE);
 }
 
-void	error_exit(char *reason)
+void error_exit(char *reason)
 {
-	perror(reason);
-	exit(EXIT_FAILURE);
+    printf("Error\n%s\n", reason);
+    exit(EXIT_FAILURE);
 }
 
 void	free_matrix(char **matrix)

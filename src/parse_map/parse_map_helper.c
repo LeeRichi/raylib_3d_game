@@ -60,9 +60,8 @@ void	trim_newline(char *line)
 }
 
 void	too_many_lines_plz_clean(int fd, char **map_lines,
-	t_map *map, char *line)
+	t_map *map)
 {
-	(void)line;
 	printf("Error: Too many lines in map\n");
 	free_trims(map);
 	close(fd);

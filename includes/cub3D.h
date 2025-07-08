@@ -134,7 +134,7 @@ int		is_map_line(char *line);
 int		texture_and_color_is_complete(t_map *map);
 void	trim_newline(char *line);
 void	too_many_lines_plz_clean(int fd, char **map_lines,
-			t_map *map, char *line);
+			t_map *map);
 //src/parse_map/parse_map_helper2.c
 int		one_of_the_dir(char *line);
 void	get_lines_helper_helper(t_map *map, char *line, char **map_lines);

@@ -43,10 +43,10 @@ void	map_operation(char *line, int fd, char **map_lines, t_map *map)
 	if (ft_strlen(line) >= MAX_LINES)
 	{
 		free(line);
-		too_many_lines_plz_clean(fd, map_lines, map, line);
+		too_many_lines_plz_clean(fd, map_lines, map);
 	}
 	trim_newline(line);
 	map_lines[map->map_index++] = line;
 	if (map->map_index >= MAX_LINES)
-		too_many_lines_plz_clean(fd, map_lines, map, line);
+		too_many_lines_plz_clean(fd, map_lines, map);
 }

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/08 22:46:22 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/08 23:53:51 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,14 +142,14 @@ void render_minimap(t_game *game, t_player	*p, int x, int y)
 	uint32_t	color;
 	
 	rad = 7;
-	i = (int) floor(p->x) - rad - 1;
-	j = (int) floor(p->y) - rad - 1;
+	i = (int) floor(p->x) - rad;
+	j = (int) floor(p->y) - rad;
 	
-	while (j < (int) floor(p->y) + rad)
+	while (j < (int) floor(p->y) + rad + 1)
 	{
-		i = (int) floor(p->x) - rad - 1;
+		i = (int) floor(p->x) - rad;
 		x = 0; 
-		while (i < (int) floor(p->x) + rad)
+		while (i < (int) floor(p->x) + rad + 1)
 		{
 			// printf("x: %i	y: %i	i: %i	j: %i\n", x, y, i, j);
 			// printf("x_lower_limit: %i	y_lower_limit: %i\n", (int) floor(p->x) - rad - 1, (int) floor(p->y) - rad - 1);

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:46:07 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 20:08:50 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:02:22 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,4 @@ void	render_map(t_game *game)
 		draw_each_col(game);
 		game->x++;
 	}
-	render_minimap(game, p, 0, 15);
 }

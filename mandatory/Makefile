@@ -6,7 +6,7 @@
 #    By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/10 18:09:12 by chlee2            #+#    #+#              #
-#    Updated: 2025/07/09 19:23:10 by wweerasi         ###   ########.fr        #
+#    Updated: 2025/07/09 22:05:25 by wweerasi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,6 @@ SRCS = src/main.c \
 		src/render/render.c \
 		src/render/render_helper.c \
 		src/render/render_pause.c \
-		src/render/render_minimap.c \
 		src/handler/key_handler.c \
 		src/handler/key_handler_helper.c \
 		src/handler/mouse_handler.c \

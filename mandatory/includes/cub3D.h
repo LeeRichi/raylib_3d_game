@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 22:03:37 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/09 22:04:07 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,6 +206,4 @@ void	is_tab_mode(t_game *game);
 //src/render/render_pausre.c
 void	render_pause_screen(t_game *game, int show);
 
-//src/render/render_minimap.c
-void	render_minimap(t_game *game, t_player	*p, int x, int y);
 #endif

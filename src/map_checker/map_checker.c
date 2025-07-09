@@ -90,6 +90,7 @@ int	copy_map_line(t_map *map, char **temp)
 			j = 0;
 			while (j < i)
 				free(temp[j++]);
+			free(temp);//this
 			return (1);
 		}
 		ft_strlcpy(temp[i], map->map[i], map->coloum_count + 1);
@@ -123,6 +124,14 @@ int	flood_fill_checker(t_map *map)
 		free(temp);
 		return (1);
 	}
+	//new
+	i = 0;
+	while (i < map->map_line_count)
+	{
+		free(temp[i]);
+		i++;
+	}
+	free(temp);
 	return (0);
 }
 

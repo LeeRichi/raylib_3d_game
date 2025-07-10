@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:44:15 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/10 21:57:56 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:40:33 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,10 +54,19 @@ void	game_init(t_game *game)
 {
 	game->mlx = mlx_init(1920, 1080, "cub3D", true);
 	if (!game->mlx)
-		error_exit("Error\nmlx_init failed\n");
+	{
+		free_map(game->map->map);
+		free_trims(game->map);
+		error_exit("mlx_init failed");
+	}
 	game->textures = malloc(sizeof(t_textures));
 	if (!game->textures)
-		exit_with_msg("Error\nmalloc failed for textures");
+	{
+		free_map(game->map->map);
+		free_trims(game->map);
+		mlx_terminate(game->mlx);
+		error_exit("mlx_init failed");
+	}
 	load_textures(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);

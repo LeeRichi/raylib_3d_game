@@ -6,11 +6,23 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:48:40 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 23:28:21 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:45:37 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3D_bonus.h"
+
+static void	free_map_lines(char **map_lines)
+{
+	int	i;
+
+	i = 0;
+	while (map_lines[i])
+	{
+		free(map_lines[i]);
+		i++;
+	}
+}
 
 void	save_map_helper(t_map *map, size_t max_len, char **map_lines)
 {
@@ -27,6 +39,8 @@ void	save_map_helper(t_map *map, size_t max_len, char **map_lines)
 			while (--i >= 0)
 				free(map->map[i]);
 			free(map->map);
+			free_map_lines(map_lines);
+			free_trims(map);
 			malloc_fail_exit();
 		}
 		ft_memcpy(map->map[i], map_lines[i], len);
@@ -59,6 +73,10 @@ void	save_map(t_map *map, char **map_lines)
 	map->coloum_count = max_len;
 	map->map = malloc(sizeof(char *) * (map->map_line_count + 1));
 	if (!map->map)
+	{
+		free_trims(map);
+		free_map_lines(map_lines);
 		malloc_fail_exit();
+	}
 	save_map_helper(map, max_len, map_lines);
 }

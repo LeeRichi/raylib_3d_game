@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/13 11:50:51 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 18:38:08 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 23:15:26 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	is_rgb_valid(char **rgb)
 	return (i == 3);
 }
 
-////ABGR
 static void	translate_color(t_map *map, char *line, char *which)
 {
 	char	**rgb;

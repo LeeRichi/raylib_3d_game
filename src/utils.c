@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 14:49:39 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 18:54:54 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:44:43 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	malloc_fail_exit(void)
 {
-	perror("malloc");
+	printf("Error\nmalloc failed\n");
 	exit(EXIT_FAILURE);
 }
 

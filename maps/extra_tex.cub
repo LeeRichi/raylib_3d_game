@@ -1,0 +1,19 @@
+NO ./assets/Ice/Photoreal_Ice_01-512x512.png
+EA ./assets/Ice/Photoreal_Ice_02-512x512.png
+WE ./assets/Ice/Photoreal_Ice_03-512x512.png
+SO ./assets/Ice/Photoreal_Ice_04-512x512.png
+DO ./textures/pics/eagle.png
+
+F 127,127,127
+C 0,100,200
+
+1111111111
+1100000001
+1001010001
+1001000001111
+10000N0000001
+1000000N01101
+1011111111101
+1011101110001
+100N000000001
+1111111111111

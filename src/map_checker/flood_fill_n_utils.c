@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/09 18:31:13 by wweerasi          #+#    #+#             */
-/*   Updated: 2025/07/09 21:41:29 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:49:37 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,7 @@ int	flood_fill_checker(t_map *map)
 	if (!temp)
 		return (1);
 	if (copy_map_line(map, temp))
-	{
-		free(temp);
 		return (1);
-	}
 	ft_flood_fill(temp, (t_point){map->coloum_count, map->map_line_count},
 		get_player_pos(map));
 	if (check_leak(temp, (t_point){map->coloum_count, map->map_line_count}))

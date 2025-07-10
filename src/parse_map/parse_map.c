@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/10 21:58:09 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/11 00:37:43 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	parse_map(const char *map_path, t_map *map)
 	line = NULL;
 	fd = open(map_path, O_RDONLY);
 	if (fd < 0)
-		return (perror("open"), exit(EXIT_FAILURE));
+		return (perror("Error\nopen"), exit(EXIT_FAILURE));
 	get_lines_helper(line, fd, map, map_lines);
 	if (!texture_and_color_is_complete(map))
 		missing_texture_exit(fd, map, map_lines);

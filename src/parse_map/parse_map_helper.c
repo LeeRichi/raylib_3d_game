@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 18:37:32 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:57:03 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	trim_newline(char *line)
 void	too_many_lines_plz_clean(int fd, char **map_lines,
 	t_map *map)
 {
-	printf("Error: Too many lines in map\n");
+	printf("Error\nToo many lines in map\n");
 	free_trims(map);
 	close(fd);
 	free_lines_count(map_lines, map->map_index);

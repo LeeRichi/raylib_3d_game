@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 20:31:31 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 23:28:10 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:58:35 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	get_lines_helper(char *line, int fd, t_map *map, char **map_lines)
 
 void	missing_texture_exit(int fd, t_map *map, char **map_lines)
 {
-	printf("Error: Missing texture paths or color codes\n");
+	printf("Error\nMissing texture paths or color codes\n");
 	close(fd);
 	free_lines_count(map_lines, map->map_index);
 	get_next_line(-1);

@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:44:15 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 18:58:57 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 21:57:56 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	load_textures(t_game *game)
 	game->textures->w_wall_texture = mlx_load_png(game->map->west_path);
 	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture
 		|| !game->textures->s_wall_texture || !game->textures->w_wall_texture)
-		local_exit_clean_with_msg("Error: mlx_load_png failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_load_png failed\n", game);
 	game->textures->n_wall_img = mlx_texture_to_image(game->mlx,
 			game->textures->n_wall_texture);
 	game->textures->e_wall_img = mlx_texture_to_image(game->mlx,
@@ -47,24 +47,24 @@ void	load_textures(t_game *game)
 			game->textures->w_wall_texture);
 	if (!game->textures->n_wall_img || !game->textures->e_wall_img
 		|| !game->textures->s_wall_img || !game->textures->w_wall_img)
-		local_exit_clean_with_msg("Error: mlx_texture_to_image failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_texture_to_image failed\n", game);
 }
 
 void	game_init(t_game *game)
 {
 	game->mlx = mlx_init(1920, 1080, "cub3D", true);
 	if (!game->mlx)
-		error_exit("Error: mlx_init failed\n");
+		error_exit("Error\nmlx_init failed\n");
 	game->textures = malloc(sizeof(t_textures));
 	if (!game->textures)
-		exit_with_msg("Error: malloc failed for textures");
+		exit_with_msg("Error\nmalloc failed for textures");
 	load_textures(game);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	game->img = mlx_new_image(game->mlx, 1920, 1080);
 	if (!game->img)
-		local_exit_clean_with_msg("Error: mlx_new_image failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_new_image failed\n", game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		local_exit_clean_with_msg("Error: mlx_image_to_window failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_image_to_window failed\n", game);
 	game->last_mouse_x = 960;
 }

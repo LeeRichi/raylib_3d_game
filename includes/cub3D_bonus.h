@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/10 20:20:31 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:46:30 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ typedef struct s_map
 	char		**map;
 	int			map_line_count;
 	int			coloum_count;
-	int			player_pos_x;
-	int			player_pos_y;
 	int			map_started_flag;
 	int			map_index;
 	int			map_end_flag;

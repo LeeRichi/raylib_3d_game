@@ -5,74 +5,122 @@
 #                                                     +:+ +:+         +:+      #
 #    By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/10 18:09:12 by chlee2            #+#    #+#              #
-#    Updated: 2025/07/09 19:23:10 by wweerasi         ###   ########.fr        #
+#    Created: 2025/07/10 17:46:27 by wweerasi          #+#    #+#              #
+#    Updated: 2025/07/10 19:31:38 by wweerasi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3D
 
-LIBFTDIR = lib/libft
-LIBFT = $(LIBFTDIR)/libft.a
+DIR_MLX			= ./lib/MLX42
+DIR_LIBFT		= ./lib/libft
+DIR_SRC			= ./src
+DIR_SRC_BONUS	= ./src_bonus
+DIR_OBJ			= $(DIR_SRC)/objects
+DIR_OBJ_BONUS	= $(DIR_SRC_BONUS)/objects_bonus
+DIR_INC			= ./includes
+HEADERS			= $(DIR_INC)/cub3D.h
+HEADERS_BONUS	= $(DIR_INC)/cub3D_bonus.h
+MLX42_REPO		= https://github.com/codam-coding-college/MLX42.git
 
-MLX42DIR = lib/MLX42
-MLX42 = $(MLX42DIR)/build/libmlx42.a
-MLX42_REPO = https://github.com/codam-coding-college/MLX42.git
+SRC =	main.c \
+		parse_map/parse_map.c \
+		parse_map/parse_map_helper.c \
+		parse_map/parse_map_helper_2.c \
+		parse_map/save_texture.c \
+		parse_map/save_color.c \
+		parse_map/save_map.c \
+		map_checker/map_checker.c \
+		map_checker/map_checker_helper.c \
+		map_checker/flood_fill_n_utils.c \
+		utils.c \
+		clean.c \
+		inits/game_init.c \
+		inits/player_init.c \
+		render/render.c \
+		render/render_helper.c \
+		render/render_pause.c \
+		handler/key_handler.c \
+		handler/key_handler_helper.c \
+		handler/mouse_handler.c \
 
-CC = cc
-RM = rm -f
-CFLAGS = -Wall -Wextra -Werror
+SRC_BONUS =	main.c \
+			parse_map/parse_map.c \
+			parse_map/parse_map_helper.c \
+			parse_map/parse_map_helper_2.c \
+			parse_map/save_texture.c \
+			parse_map/save_color.c \
+			parse_map/save_map.c \
+			map_checker/map_checker.c \
+			map_checker/map_checker_helper.c \
+			map_checker/flood_fill_n_utils.c \
+			utils.c \
+			clean.c \
+			inits/game_init.c \
+			inits/player_init.c \
+			render/render.c \
+			render/render_helper.c \
+			render/render_pause.c \
+			render/render_minimap.c \
+			handler/key_handler.c \
+			handler/key_handler_helper.c \
+			handler/mouse_handler.c \
 
-SRCS = src/main.c \
-		src/parse_map/parse_map.c \
-		src/parse_map/parse_map_helper.c \
-		src/parse_map/parse_map_helper_2.c \
-		src/parse_map/save_texture.c \
-		src/parse_map/save_color.c \
-		src/parse_map/save_map.c \
-		src/map_checker/map_checker.c \
-		src/map_checker/map_checker_helper.c \
-		src/map_checker/flood_fill_n_utils.c \
-		src/utils.c \
-		src/clean.c \
-		src/inits/game_init.c \
-		src/inits/player_init.c \
-		src/render/render.c \
-		src/render/render_helper.c \
-		src/render/render_pause.c \
-		src/render/render_minimap.c \
-		src/handler/key_handler.c \
-		src/handler/key_handler_helper.c \
-		src/handler/mouse_handler.c \
+OBJECTS			= $(addprefix $(DIR_OBJ)/,$(SRC:.c=.o))
+OBJECTS_BONUS 	= $(addprefix $(DIR_OBJ_BONUS)/,$(SRC_BONUS:.c=.o))
 
-OBJS = $(SRCS:.c=.o)
+LIBMLX			= $(DIR_MLX)/build/libmlx42.a
 
-all: $(MLX42DIR) $(NAME)
+LIBMLX_FLAGS	= $(LIBMLX) -ldl -lglfw -lm
+LIBFT_FLAGS		= -L $(DIR_LIBFT) -lft
 
-$(MLX42DIR):
-	git clone $(MLX42_REPO) $(MLX42DIR)
+CC				= cc
+CFLAGS			= -Wall -Wextra -Werror
+RM				= rm -rf
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX42)
-	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L$(LIBFTDIR) -lft -L$(MLX42DIR)/build -lmlx42 -lglfw -lm
+all: libft $(LIBMLX) $(NAME)
+bonus: libft $(LIBMLX) .bonus
+libft:
+	@make -C $(DIR_LIBFT)
 
-$(LIBFT):
-	@make -C $(LIBFTDIR)
+$(LIBMLX):
+	@if [ ! -d $(DIR_MLX) ]; then \
+		git clone https://github.com/codam-coding-college/MLX42.git \
+		$(DIR_MLX); \
+	fi
+	@if [ ! -f $(DIR_MLX)/build/libmlx42.a ]; then \
+		cmake $(DIR_MLX) -B $(DIR_MLX)/build && make -C $(DIR_MLX)/build -j4; \
+	fi
 
-$(MLX42):
-	@cmake -B $(MLX42DIR)/build -S $(MLX42DIR)
-	@cmake --build $(MLX42DIR)/build
+$(NAME): $(OBJECTS)
+	$(CC) $(OBJECTS) $(LIBFT_FLAGS) $(LIBMLX_FLAGS) -o $@
+
+.bonus: $(OBJECTS_BONUS)
+	$(CC) $(OBJECTS_BONUS) $(LIBFT_FLAGS) $(LIBMLX_FLAGS) -o $(NAME)_bonus
+	@touch .bonus
+
+$(DIR_OBJ)/%.o: $(DIR_SRC)/%.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -I$(DIR_INC) -c $< -o $@
+
+$(DIR_OBJ_BONUS)/%.o: $(DIR_SRC_BONUS)/%.c $(HEADERS_BONUS)
+	@mkdir -p $(dir $@)
+	@$(CC) $(CFLAGS) -I$(DIR_INC) -c $< -o $@
+
 
 clean:
-	$(RM) $(OBJS)
-	@make clean -C $(LIBFTDIR)
-	rm -rf $(MLX42DIR)
+	@$(RM) $(DIR_OBJ) 
+	@$(RM) $(DIR_OBJ_BONUS)
+	@$(RM) $(DIR_MLX)/build
+	@make -C $(DIR_LIBFT) clean
 
 fclean: clean
-	rm -f $(NAME)
-	@make fclean -C $(LIBFTDIR)
+	$(RM) .bonus
+	@$(RM) $(NAME) 
+	@$(RM) $(NAME)_bonus
+	@$(RM) $(DIR_MLX)
+	@make -C $(DIR_LIBFT) fclean
 
 re: fclean all
 
-.PHONY: all clean fclean re
-
-
+.PHONY: all bonus libft clean fclean re

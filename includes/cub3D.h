@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/10 18:12:45 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 22:04:07 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:08:19 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ void	handle_input(void *param);
 
 //src/handler/key_handler_helper.c
 void	clear_image_by_put_pixel(mlx_image_t *img);
-void	is_tab_mode(t_game *game);
+void	is_tab_mode(mlx_key_data_t keydata, t_game *game);
 
 //src/handler/mouse_handler.c
 void	handle_mouse_move(double xpos, double ypos, void *param);
@@ -201,7 +201,6 @@ void	free_trims(t_map *map);
 void	free_images(t_game *game);
 void	free_textures(t_game *game);
 void	clean_exit(t_game *game, t_map *map);
-void	is_tab_mode(t_game *game);
 
 //src/render/render_pausre.c
 void	render_pause_screen(t_game *game, int show);

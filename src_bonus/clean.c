@@ -6,11 +6,11 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 17:48:27 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 23:28:55 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:57:24 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D_bonus.h"
+#include "../includes/cub3D_bonus.h"
 
 void	free_map(char **map)
 {

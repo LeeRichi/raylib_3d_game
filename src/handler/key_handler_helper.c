@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_handler.c                                      :+:      :+:    :+:   */
+/*   key_handler_helper.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chlee2 <chlee2@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:48:56 by chlee2            #+#    #+#             */
-/*   Updated: 2025/06/15 23:39:55 by chlee2           ###   ########.fr       */
+/*   Updated: 2025/07/10 20:09:08 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ void	clear_image_by_put_pixel(mlx_image_t *img)
 	}
 }
 
-//toggle tab mode
-void	is_tab_mode(t_game *game)
+void	is_tab_mode(mlx_key_data_t keydata, t_game *game)
 {
 	static int	tab_pressed;
 
 	tab_pressed = 0;
-	if (mlx_is_key_down(game->mlx, MLX_KEY_TAB))
+	if (keydata.key == MLX_KEY_TAB && keydata.action == MLX_PRESS)
 	{
 		if (!tab_pressed)
 		{

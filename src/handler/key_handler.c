@@ -6,7 +6,7 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/15 16:48:56 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 20:10:06 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 20:07:38 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	handle_keypress(mlx_key_data_t keydata, void *param)
 	game = (t_game *)param;
 	if (keydata.key == MLX_KEY_TAB)
 	{
-		is_tab_mode(game);
+		is_tab_mode(keydata, game);
 	}
 }
 

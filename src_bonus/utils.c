@@ -6,11 +6,11 @@
 /*   By: wweerasi <wweerasi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/11 14:49:39 by chlee2            #+#    #+#             */
-/*   Updated: 2025/07/09 23:29:08 by wweerasi         ###   ########.fr       */
+/*   Updated: 2025/07/10 19:57:19 by wweerasi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/cub3D_bonus.h"
+#include "../includes/cub3D_bonus.h"
 
 void	malloc_fail_exit(void)
 {

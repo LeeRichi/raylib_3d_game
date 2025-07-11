@@ -36,7 +36,7 @@ void	load_textures(t_game *game)
 	game->textures->w_wall_texture = mlx_load_png(game->map->west_path);
 	if (!game->textures->n_wall_texture || !game->textures->e_wall_texture
 		|| !game->textures->s_wall_texture || !game->textures->w_wall_texture)
-		local_exit_clean_with_msg("Error\nmlx_load_png failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_load_png failed", game);
 	game->textures->n_wall_img = mlx_texture_to_image(game->mlx,
 			game->textures->n_wall_texture);
 	game->textures->e_wall_img = mlx_texture_to_image(game->mlx,
@@ -47,7 +47,7 @@ void	load_textures(t_game *game)
 			game->textures->w_wall_texture);
 	if (!game->textures->n_wall_img || !game->textures->e_wall_img
 		|| !game->textures->s_wall_img || !game->textures->w_wall_img)
-		local_exit_clean_with_msg("Error\nmlx_texture_to_image failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_texture_to_image failed", game);
 }
 
 void	game_init(t_game *game)
@@ -72,8 +72,8 @@ void	game_init(t_game *game)
 	mlx_set_cursor_mode(game->mlx, MLX_MOUSE_DISABLED);
 	game->img = mlx_new_image(game->mlx, 1920, 1080);
 	if (!game->img)
-		local_exit_clean_with_msg("Error\nmlx_new_image failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_new_image failed", game);
 	if (mlx_image_to_window(game->mlx, game->img, 0, 0) < 0)
-		local_exit_clean_with_msg("Error\nmlx_image_to_window failed\n", game);
+		local_exit_clean_with_msg("Error\nmlx_image_to_window failed", game);
 	game->last_mouse_x = 960;
 }
